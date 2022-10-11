@@ -61,51 +61,59 @@ scp kang1234@147.8.76.177:~/genome/Gene_annotation/ref.fasta.ano.final ./
 # Kang@fishlab3 Mon Oct 03 10:38:04 /media/HDD/cleaner_fish/Genome_analysis_restart
 mkdir gene_family_seq_input; cd gene_family_seq_input
 
-# the seq length should be more than 50
+# the seq length should be more than 50 && can be mapped to swiss-prot
 # Kang@fishlab3 Mon Oct 03 11:02:00 /media/HDD/cleaner_fish/Genome_analysis_restart/gene_family_seq_input
 perl extract_seq.pl
 # Kang@fishlab3 Mon Oct 03 11:00:39 /media/HDD/cleaner_fish/Genome_analysis_restart/gene_family_seq_input
 for fa in *.fasta;do echo -n "$fa   ";grep '>' ${fa}|wc -l;done
-# Cheilinus_undulatus.fasta   18806   # 18806
-# Fugu.fasta   16391   # 16395
-# Labroides_dimidiatus.fasta   17437   # 17437
-# Labrus_bergylta.fasta   19313   # 19313
-# Medaka.fasta   17212   # 17217
-# Notolabrus_celidotus.fasta   18009   # 18010
-# Platyfish.fasta   17835   # 17842
-# Semicossyphus_pulcher.fasta   19075   # 19075
-# Spottedgar.fasta   14678   # 14683
-# Stickleback.fasta   15678   # 15678
-# Symphodus_melops.fasta   17619   # 17619
-# Tautogolabrus_adspersus.fasta   19111   # 19113
-# Thalassoma_bifasciatum.fasta   21109   # 21109
-# Zebrafish.fasta   22884   # 22897
+# Cheilinus_undulatus.fasta   16797
+# Fugu.fasta   15909
+# Labroides_dimidiatus.fasta   16621
+# Labrus_bergylta.fasta   17223
+# Medaka.fasta   16600
+# Notolabrus_celidotus.fasta   16118
+# Patyfish.fasta   17175
+# Semicossyphus_pulcher.fasta   17344
+# Spottedgar.fasta   14365
+# Stickleback.fasta   15368
+# Symphodus_melops.fasta   16313
+# Tautogolabrus_adspersus.fasta   17150
+# Thalassoma_bifasciatum.fasta   19294
+# Zebrafish.fasta   21570
 ```
 
 ### orthofinder detect the orthogroups
 ```bash
 # Kang@fishlab3 Mon Oct 03 11:08:36 /media/HDD/cleaner_fish/Genome_analysis_restart
 nohup orthofinder -f gene_family_seq_input -a 32 >Orthofinder.process 2>&1 &
-# [1] 20349
+# [1] 6631
 
 # the gene family should exist in at least three ref species and then annotate the gene family with species that have the most gene number in this gene family
 # Kang@fishlab3 Mon Oct 03 14:07:05 /media/HDD/cleaner_fish/Genome_analysis_restart/ano_files
-cat *.final|perl -alne 'if (/scov=\"(.*?)\";/){print if $1>=70}'>all_qualified.anno.txt
+# cat *.final|perl -alne 'if (/scov=\"(.*?)\";/){print if $1>=70}'>all_qualified.anno.txt
 # Kang@fishlab3 Mon Oct 03 14:25:00 /media/HDD/cleaner_fish/Genome_analysis_restart/gene_family_seq_input/OrthoFinder/Results_Oct03/Orthogroups
-perl filter_ano_gene_family.pl # output: fm_nb_ano.txt; fm_nb.txt; 13733 gene families
+# perl filter_ano_gene_family.pl # output: fm_nb_ano.txt; fm_nb.txt; 13733 gene families
 # Kang@fishlab3 Mon Oct 03 16:05:14 /media/HDD/cleaner_fish/Genome_analysis_restart/gene_family_seq_input/OrthoFinder/Results_Oct03/Orthogroups
-python clade_and_size_filter.py -i fm_nb.txt -o fm_nb_filtered.txt -s # fm_nb_filtered.txt: 13733 gene families
-scp fm_nb_filtered.txt kang1234@147.8.76.177:~/genome/gene_family
+# python clade_and_size_filter.py -i fm_nb.txt -o fm_nb_filtered.txt -s # fm_nb_filtered.txt: 13733 gene families
+# scp fm_nb_filtered.txt kang1234@147.8.76.177:~/genome/gene_family
+
+# the orthogroups were divided into gene family by gene name to make sure only one gene name in each gene family
+# Kang@fishlab3 Tue Oct 11 10:40:57 /media/HDD/cleaner_fish/Genome_analysis_restart/ano_files
+cat *.final|perl -alne 'if (/swiss-prot/ && /scov=\"(.*?)\";.*qlenth=\"(.*?)\"/){print if $1>=70}'>all_qualified.anno.txt
+# Kang@fishlab3 Tue Oct 11 11:40:52 /media/HDD/cleaner_fish/Genome_analysis_restart/gene_family_seq_input/OrthoFinder/Results_Oct11/Orthogroups
+mv ../../../OrthoFinder_old/Results_Oct03/Orthogroups/temp1.pl filter_ano_gene_family.pl
+perl filter_ano_gene_family.pl
+# in each gene family, at least 7 species with gene number > 0
+less fm_nb.txt|perl -alne 'if (/^Desc/){print}else{my $k;for (my $i = 2; $i < @F; $i++){$k++ if $F[$i]>0};print if $k>=7}' >fm_nb_conserve.txt
+python clade_and_size_filter.py -i fm_nb_conserve.txt -o fm_nb_conserve_filtered.txt -s # 14390 gene families
+less fm_nb_conserve_filtered.txt |perl -alne 's/\_//g;print' >fm_nb_conserve_filtered.txt.1
+mv fm_nb_conserve_filtered.txt.1 fm_nb_conserve_filtered.txt
+scp fm_nb_conserve_filtered.txt kang1234@147.8.76.177:~/genome/gene_family
 ```
 ### Run cafe
-```bash
-# (base) kang1234@celia-PowerEdge-T640 Mon Oct 03 16:24:17 ~/genome/gene_family
-less fm_nb_filtered.txt|perl -alne 's/\_//g;print' >fm_nb_filtered.txt1;mv fm_nb_filtered.txt1 fm_nb_filtered.txt
-```
-
 ```Restart.cafe
 #! cafe
-load -i fm_nb_filtered.txt -t 20 -l Restart/log_run1.txt -p 0.01 -r 10000
+load -i fm_nb_conserve_filtered.txt -t 20 -l Restart/log_run1.txt -p 0.01 -r 10000
 tree ((((((((((Symphodusmelops:12.207213,Tautogolabrusadspersus:12.207213):4.220335,Labrusbergylta:16.427548):16.178243,Cheilinusundulatus:32.605791):3.790756,((Labroidesdimidiatus:14.975052,Thalassomabifasciatum:14.975052):11.654002,Notolabruscelidotus:26.629053):9.767494):3.822500,Semicossyphuspulcher:40.219047):26.542146,Stickleback:66.761193):7.420018,Fugu:74.181211):5.877738,(Platyfish:68.523066,Medaka:68.523066):11.535883):76.471051,Zebrafish:156.530000):94.757281,Spottedgar:251.287281)
 lambda -s -t ((((((((((1,1)1,1)1,1)1,((1,1)1,1)1)1,1)1,1)1,1)1,(1,1)1)1,1)1,1)
 report Restart/report_run1
@@ -113,7 +121,6 @@ report Restart/report_run1
 
 ```bash
 mkdir Restart/
-chmod +x Restart.cafe
 cafe ./Restart.cafe
 python2 report_analysis.py -i Restart/report_run1.cafe -o Restart/summary_run1
 # Plot the result: Rapid, Expansions, Contractions
