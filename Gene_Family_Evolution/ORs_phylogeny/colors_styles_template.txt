@@ -1,0 +1,464 @@
+TREE_COLORS
+#use this template to define branch colors and styles, colored ranges and label colors/font styles/backgrounds
+#lines starting with a hash are comments and ignored during parsing
+
+#=================================================================#
+#                    MANDATORY SETTINGS                           #
+#=================================================================#
+#select the separator which is used to delimit the data below (TAB,SPACE or COMMA).This separator must be used throughout this file.
+
+#SEPARATOR TAB
+SEPARATOR SPACE
+#SEPARATOR COMMA
+
+#First 3 fields define the node, type and color
+#Possible types are:
+#'range': defines a colored range (colored background for labels/clade)
+#'clade': defines color/style for all branches in a clade
+#'branch': defines color/style for a single branch
+#'label': defines font color/style for the leaf label
+#'label_background': defines the leaf label background color
+
+#The following additional fields are required:
+#for 'range', field 4 defines the colored range label (used in the legend)
+
+#The following additional fields are optional:
+#for 'label', field 4 defines the font style ('normal',''bold', 'italic' or 'bold-italic') and field 5 defines the numeric scale factor for the font size (eg. with value 2, font size for that label will be 2x the standard size)
+#for 'clade' and 'branch', field 4 defines the branch style ('normal' or 'dashed') and field 5 defines the branch width scale factor (eg. with value 0.5, branch width for that clade will be 0.5 the standard width)
+
+#Internal tree nodes can be specified using IDs directly, or using the 'last common ancestor' method described in iTOL help pages
+#=================================================================#
+#       Actual data follows after the "DATA" keyword              #
+#=================================================================#
+DATA
+#NODE_ID TYPE COLOR LABEL_OR_STYLE SIZE_FACTOR
+
+#Examples
+#internal node with solid branches colored blue and twice the standard width
+#9031|9606 clade #0000ff normal 2
+#internal node with dashed branches colored red and one half the standard width
+#601|340 clade #ff0000 dashed 0.5
+#a single internal branch colored green, dashed and 5 times the normal width
+#915|777 branch #00ff00 dashed 5
+
+#colored range covering all leaves of an internal node,  colored red and with label 'Eukaryota'
+#184922|9606 range #ff0000 Eukaryota
+#examples of colored ranges from iTOL's Tree of Life
+#2190|2287 range #aaffaa Archaea
+#623|1502 range #aaaaff Bacteria
+
+#leaf label for node 9606 will be displayed in green, bold and twice the regular font size
+S.melops.Delta-1 label #8fce00 bold 2
+C.undulatus.Delta-1 label #6a329f bold 2
+L.bergylta.Delta-1 label #16537e bold 2
+T.adspersus.Delta-1 label #2986cc bold 2
+T.bifasciatum.Delta-7 label #744700 bold 2
+N.celidotus.Delta-4 label #ce7e00 bold 2
+S.pulcher.Delta-4 label #c90076 bold 2
+C.undulatus.Delta-5 label #6a329f bold 2
+L.bergylta.Delta-6 label #16537e bold 2
+S.melops.Delta-5 label #8fce00 bold 2
+T.adspersus.Delta-5 label #2986cc bold 2
+N.celidotus.Delta-5 label #ce7e00 bold 2
+S.pulcher.Delta-6 label #c90076 bold 2
+S.pulcher.Delta-5 label #c90076 bold 2
+S.melops.Delta-6 label #8fce00 bold 2
+T.adspersus.Delta-10 label #2986cc bold 2
+C.undulatus.Delta-6 label #6a329f bold 2
+S.pulcher.Delta-7 label #c90076 bold 2
+T.bifasciatum.Delta-8 label #744700 bold 2
+T.bifasciatum.Delta-9 label #744700 bold 2
+N.celidotus.Delta-6 label #ce7e00 bold 2
+N.celidotus.Delta-7 label #ce7e00 bold 2
+C.undulatus.Delta-8 label #6a329f bold 2
+S.melops.Delta-7 label #8fce00 bold 2
+T.adspersus.Delta-11 label #2986cc bold 2
+S.melops.Delta-8 label #8fce00 bold 2
+T.adspersus.Delta-12 label #2986cc bold 2
+L.bergylta.Delta-15 label #16537e bold 2
+L.bergylta.Delta-16 label #16537e bold 2
+L.bergylta.Delta-17 label #16537e bold 2
+C.undulatus.Delta-7 label #6a329f bold 2
+S.pulcher.Delta-8 label #c90076 bold 2
+S.pulcher.Delta-9 label #c90076 bold 2
+T.bifasciatum.Delta-4 label #744700 bold 2
+L.bergylta.Delta-7 label #16537e bold 2
+S.melops.Delta-10 label #8fce00 bold 2
+T.adspersus.Delta-6 label #2986cc bold 2
+C.undulatus.Delta-10 label #6a329f bold 2
+N.celidotus.Delta-11 label #ce7e00 bold 2
+S.pulcher.Delta-11 label #c90076 bold 2
+C.undulatus.Delta-9 label #6a329f bold 2
+T.bifasciatum.Delta-5 label #744700 bold 2
+T.bifasciatum.Delta-6 label #744700 bold 2
+N.celidotus.Delta-8 label #ce7e00 bold 2
+S.pulcher.Delta-10 label #c90076 bold 2
+L.bergylta.Delta-10 label #16537e bold 2
+S.melops.Delta-9 label #8fce00 bold 2
+T.adspersus.Delta-7 label #2986cc bold 2
+C.undulatus.Delta-11 label #6a329f bold 2
+L.bergylta.Delta-13 label #16537e bold 2
+L.bergylta.Delta-14 label #16537e bold 2
+N.celidotus.Delta-9 label #ce7e00 bold 2
+L.bergylta.Delta-11 label #16537e bold 2
+L.bergylta.Delta-12 label #16537e bold 2
+S.melops.Delta-12 label #8fce00 bold 2
+S.melops.Delta-13 label #8fce00 bold 2
+T.adspersus.Delta-9 label #2986cc bold 2
+C.undulatus.Delta-12 label #6a329f bold 2
+S.melops.Delta-11 label #8fce00 bold 2
+T.adspersus.Delta-8 label #2986cc bold 2
+L.bergylta.Delta-8 label #16537e bold 2
+L.bergylta.Delta-9 label #16537e bold 2
+N.celidotus.Delta-10 label #ce7e00 bold 2
+S.pulcher.Delta-12 label #c90076 bold 2
+T.bifasciatum.Delta-1 label #744700 bold 2
+C.undulatus.Delta-2 label #6a329f bold 2
+S.melops.Delta-2 label #8fce00 bold 2
+L.bergylta.Delta-2 label #16537e bold 2
+T.adspersus.Delta-2 label #2986cc bold 2
+N.celidotus.Delta-1 label #ce7e00 bold 2
+S.pulcher.Delta-1 label #c90076 bold 2
+S.pulcher.Delta-2 label #c90076 bold 2
+N.celidotus.Delta-2 label #ce7e00 bold 2
+T.bifasciatum.Delta-2 label #744700 bold 2
+C.undulatus.Delta-3 label #6a329f bold 2
+L.bergylta.Delta-4 label #16537e bold 2
+L.bergylta.Delta-5 label #16537e bold 2
+S.melops.Delta-3 label #8fce00 bold 2
+T.adspersus.Delta-3 label #2986cc bold 2
+C.undulatus.Delta-4 label #6a329f bold 2
+N.celidotus.Delta-3 label #ce7e00 bold 2
+T.bifasciatum.Delta-3 label #744700 bold 2
+S.pulcher.Delta-3 label #c90076 bold 2
+S.melops.Delta-4 label #8fce00 bold 2
+T.adspersus.Delta-4 label #2986cc bold 2
+L.bergylta.Delta-3 label #16537e bold 2
+C.undulatus.Delta-14 label #6a329f bold 2
+L.bergylta.Delta-41 label #16537e bold 2
+L.bergylta.Delta-42 label #16537e bold 2
+S.melops.Delta-40 label #8fce00 bold 2
+S.melops.Delta-41 label #8fce00 bold 2
+S.melops.Delta-37 label #8fce00 bold 2
+S.melops.Delta-38 label #8fce00 bold 2
+N.celidotus.Delta-12 label #ce7e00 bold 2
+N.celidotus.Delta-13 label #ce7e00 bold 2
+C.undulatus.Delta-17 label #6a329f bold 2
+S.pulcher.Delta-26 label #c90076 bold 2
+C.undulatus.Delta-16 label #6a329f bold 2
+N.celidotus.Delta-15 label #ce7e00 bold 2
+S.melops.Delta-42 label #8fce00 bold 2
+S.melops.Delta-43 label #8fce00 bold 2
+T.adspersus.Delta-29 label #2986cc bold 2
+T.adspersus.Delta-30 label #2986cc bold 2
+L.bergylta.Delta-44 label #16537e bold 2
+S.pulcher.Delta-27 label #c90076 bold 2
+C.undulatus.Delta-15 label #6a329f bold 2
+T.bifasciatum.Delta-13 label #744700 bold 2
+N.celidotus.Delta-16 label #ce7e00 bold 2
+S.melops.Delta-44 label #8fce00 bold 2
+T.adspersus.Delta-27 label #2986cc bold 2
+T.adspersus.Delta-28 label #2986cc bold 2
+L.bergylta.Delta-45 label #16537e bold 2
+L.bergylta.Delta-46 label #16537e bold 2
+L.bergylta.Delta-43 label #16537e bold 2
+S.melops.Delta-39 label #8fce00 bold 2
+C.undulatus.Delta-21 label #6a329f bold 2
+C.undulatus.Delta-22 label #6a329f bold 2
+C.undulatus.Delta-23 label #6a329f bold 2
+C.undulatus.Delta-24 label #6a329f bold 2
+C.undulatus.Delta-20 label #6a329f bold 2
+C.undulatus.Delta-18 label #6a329f bold 2
+C.undulatus.Delta-19 label #6a329f bold 2
+T.bifasciatum.Delta-12 label #744700 bold 2
+N.celidotus.Delta-17 label #ce7e00 bold 2
+N.celidotus.Delta-18 label #ce7e00 bold 2
+N.celidotus.Delta-19 label #ce7e00 bold 2
+T.bifasciatum.Delta-10 label #744700 bold 2
+T.bifasciatum.Delta-11 label #744700 bold 2
+N.celidotus.Delta-14 label #ce7e00 bold 2
+C.undulatus.Delta-13 label #6a329f bold 2
+S.pulcher.Delta-25 label #c90076 bold 2
+T.adspersus.Delta-26 label #2986cc bold 2
+T.bifasciatum.Delta-24 label #744700 bold 2
+T.bifasciatum.Delta-25 label #744700 bold 2
+N.celidotus.Delta-20 label #ce7e00 bold 2
+S.pulcher.Delta-31 label #c90076 bold 2
+C.undulatus.Delta-48 label #6a329f bold 2
+S.melops.Delta-30 label #8fce00 bold 2
+L.bergylta.Delta-51 label #16537e bold 2
+T.adspersus.Delta-40 label #2986cc bold 2
+T.bifasciatum.Delta-30 label #744700 bold 2
+S.pulcher.Delta-35 label #c90076 bold 2
+T.bifasciatum.Delta-29 label #744700 bold 2
+T.bifasciatum.Delta-31 label #744700 bold 2
+C.undulatus.Delta-49 label #6a329f bold 2
+L.bergylta.Delta-52 label #16537e bold 2
+L.bergylta.Delta-53 label #16537e bold 2
+S.melops.Delta-31 label #8fce00 bold 2
+T.adspersus.Delta-41 label #2986cc bold 2
+N.celidotus.Delta-21 label #ce7e00 bold 2
+S.pulcher.Delta-34 label #c90076 bold 2
+T.bifasciatum.Delta-26 label #744700 bold 2
+S.pulcher.Delta-32 label #c90076 bold 2
+N.celidotus.Delta-22 label #ce7e00 bold 2
+C.undulatus.Delta-53 label #6a329f bold 2
+C.undulatus.Delta-51 label #6a329f bold 2
+C.undulatus.Delta-52 label #6a329f bold 2
+S.melops.Delta-35 label #8fce00 bold 2
+L.bergylta.Delta-58 label #16537e bold 2
+L.bergylta.Delta-56 label #16537e bold 2
+L.bergylta.Delta-55 label #16537e bold 2
+L.bergylta.Delta-59 label #16537e bold 2
+L.bergylta.Delta-57 label #16537e bold 2
+S.melops.Delta-33 label #8fce00 bold 2
+T.adspersus.Delta-45 label #2986cc bold 2
+T.adspersus.Delta-44 label #2986cc bold 2
+T.adspersus.Delta-43 label #2986cc bold 2
+T.adspersus.Delta-46 label #2986cc bold 2
+S.melops.Delta-36 label #8fce00 bold 2
+S.melops.Delta-34 label #8fce00 bold 2
+T.bifasciatum.Delta-27 label #744700 bold 2
+T.bifasciatum.Delta-28 label #744700 bold 2
+C.undulatus.Delta-50 label #6a329f bold 2
+N.celidotus.Delta-23 label #ce7e00 bold 2
+S.pulcher.Delta-33 label #c90076 bold 2
+S.melops.Delta-32 label #8fce00 bold 2
+L.bergylta.Delta-54 label #16537e bold 2
+T.adspersus.Delta-42 label #2986cc bold 2
+T.bifasciatum.Delta-20 label #744700 bold 2
+T.bifasciatum.Delta-19 label #744700 bold 2
+T.bifasciatum.Delta-23 label #744700 bold 2
+T.bifasciatum.Delta-21 label #744700 bold 2
+T.bifasciatum.Delta-22 label #744700 bold 2
+S.melops.Delta-45 label #8fce00 bold 2
+T.adspersus.Delta-31 label #2986cc bold 2
+T.adspersus.Delta-32 label #2986cc bold 2
+L.bergylta.Delta-47 label #16537e bold 2
+C.undulatus.Delta-45 label #6a329f bold 2
+C.undulatus.Delta-43 label #6a329f bold 2
+C.undulatus.Delta-46 label #6a329f bold 2
+C.undulatus.Delta-47 label #6a329f bold 2
+C.undulatus.Delta-44 label #6a329f bold 2
+C.undulatus.Delta-40 label #6a329f bold 2
+N.celidotus.Delta-24 label #ce7e00 bold 2
+T.bifasciatum.Delta-14 label #744700 bold 2
+S.pulcher.Delta-28 label #c90076 bold 2
+S.melops.Delta-46 label #8fce00 bold 2
+L.bergylta.Delta-48 label #16537e bold 2
+T.adspersus.Delta-33 label #2986cc bold 2
+T.adspersus.Delta-34 label #2986cc bold 2
+T.bifasciatum.Delta-17 label #744700 bold 2
+T.bifasciatum.Delta-18 label #744700 bold 2
+N.celidotus.Delta-26 label #ce7e00 bold 2
+S.pulcher.Delta-30 label #c90076 bold 2
+C.undulatus.Delta-41 label #6a329f bold 2
+S.melops.Delta-48 label #8fce00 bold 2
+S.melops.Delta-49 label #8fce00 bold 2
+L.bergylta.Delta-50 label #16537e bold 2
+T.adspersus.Delta-39 label #2986cc bold 2
+T.adspersus.Delta-37 label #2986cc bold 2
+T.adspersus.Delta-38 label #2986cc bold 2
+T.bifasciatum.Delta-15 label #744700 bold 2
+T.bifasciatum.Delta-16 label #744700 bold 2
+N.celidotus.Delta-25 label #ce7e00 bold 2
+S.pulcher.Delta-29 label #c90076 bold 2
+C.undulatus.Delta-42 label #6a329f bold 2
+L.bergylta.Delta-49 label #16537e bold 2
+T.adspersus.Delta-35 label #2986cc bold 2
+S.melops.Delta-47 label #8fce00 bold 2
+T.adspersus.Delta-36 label #2986cc bold 2
+C.undulatus.Delta-27 label #6a329f bold 2
+S.melops.Delta-17 label #8fce00 bold 2
+S.melops.Delta-18 label #8fce00 bold 2
+T.adspersus.Delta-17 label #2986cc bold 2
+T.bifasciatum.Delta-35 label #744700 bold 2
+N.celidotus.Delta-30 label #ce7e00 bold 2
+T.bifasciatum.Delta-34 label #744700 bold 2
+S.pulcher.Delta-17 label #c90076 bold 2
+N.celidotus.Delta-31 label #ce7e00 bold 2
+S.pulcher.Delta-16 label #c90076 bold 2
+L.bergylta.Delta-31 label #16537e bold 2
+C.undulatus.Delta-28 label #6a329f bold 2
+T.adspersus.Delta-16 label #2986cc bold 2
+N.celidotus.Delta-33 label #ce7e00 bold 2
+N.celidotus.Delta-32 label #ce7e00 bold 2
+T.bifasciatum.Delta-36 label #744700 bold 2
+T.bifasciatum.Delta-37 label #744700 bold 2
+T.bifasciatum.Delta-38 label #744700 bold 2
+T.bifasciatum.Delta-39 label #744700 bold 2
+S.pulcher.Delta-18 label #c90076 bold 2
+T.adspersus.Delta-18 label #2986cc bold 2
+L.bergylta.Delta-32 label #16537e bold 2
+L.bergylta.Delta-33 label #16537e bold 2
+C.undulatus.Delta-29 label #6a329f bold 2
+C.undulatus.Delta-30 label #6a329f bold 2
+C.undulatus.Delta-31 label #6a329f bold 2
+S.melops.Delta-23 label #8fce00 bold 2
+S.melops.Delta-26 label #8fce00 bold 2
+S.melops.Delta-27 label #8fce00 bold 2
+S.melops.Delta-24 label #8fce00 bold 2
+S.melops.Delta-25 label #8fce00 bold 2
+C.undulatus.Delta-34 label #6a329f bold 2
+C.undulatus.Delta-35 label #6a329f bold 2
+T.bifasciatum.Delta-42 label #744700 bold 2
+T.bifasciatum.Delta-40 label #744700 bold 2
+T.bifasciatum.Delta-41 label #744700 bold 2
+C.undulatus.Delta-36 label #6a329f bold 2
+T.bifasciatum.Delta-43 label #744700 bold 2
+T.bifasciatum.Delta-44 label #744700 bold 2
+N.celidotus.Delta-35 label #ce7e00 bold 2
+L.bergylta.Delta-34 label #16537e bold 2
+T.adspersus.Delta-19 label #2986cc bold 2
+N.celidotus.Delta-36 label #ce7e00 bold 2
+S.pulcher.Delta-19 label #c90076 bold 2
+C.undulatus.Delta-38 label #6a329f bold 2
+T.adspersus.Delta-24 label #2986cc bold 2
+T.adspersus.Delta-25 label #2986cc bold 2
+L.bergylta.Delta-39 label #16537e bold 2
+L.bergylta.Delta-38 label #16537e bold 2
+L.bergylta.Delta-40 label #16537e bold 2
+N.celidotus.Delta-38 label #ce7e00 bold 2
+C.undulatus.Delta-33 label #6a329f bold 2
+S.pulcher.Delta-20 label #c90076 bold 2
+S.melops.Delta-21 label #8fce00 bold 2
+S.melops.Delta-22 label #8fce00 bold 2
+T.adspersus.Delta-23 label #2986cc bold 2
+N.celidotus.Delta-37 label #ce7e00 bold 2
+C.undulatus.Delta-39 label #6a329f bold 2
+S.pulcher.Delta-22 label #c90076 bold 2
+L.bergylta.Delta-35 label #16537e bold 2
+T.adspersus.Delta-20 label #2986cc bold 2
+T.bifasciatum.Delta-45 label #744700 bold 2
+T.bifasciatum.Delta-46 label #744700 bold 2
+T.bifasciatum.Delta-47 label #744700 bold 2
+N.celidotus.Delta-34 label #ce7e00 bold 2
+C.undulatus.Delta-32 label #6a329f bold 2
+S.pulcher.Delta-21 label #c90076 bold 2
+S.melops.Delta-19 label #8fce00 bold 2
+S.melops.Delta-20 label #8fce00 bold 2
+L.bergylta.Delta-37 label #16537e bold 2
+T.adspersus.Delta-22 label #2986cc bold 2
+T.bifasciatum.Delta-48 label #744700 bold 2
+T.bifasciatum.Delta-49 label #744700 bold 2
+C.undulatus.Delta-37 label #6a329f bold 2
+N.celidotus.Delta-39 label #ce7e00 bold 2
+S.pulcher.Delta-23 label #c90076 bold 2
+S.melops.Delta-28 label #8fce00 bold 2
+S.melops.Delta-29 label #8fce00 bold 2
+L.bergylta.Delta-36 label #16537e bold 2
+T.adspersus.Delta-21 label #2986cc bold 2
+T.bifasciatum.Delta-92 label #744700 bold 2
+T.bifasciatum.Delta-94 label #744700 bold 2
+T.bifasciatum.Delta-93 label #744700 bold 2
+T.bifasciatum.Delta-50 label #744700 bold 2
+T.bifasciatum.Delta-51 label #744700 bold 2
+T.bifasciatum.Delta-54 label #744700 bold 2
+T.bifasciatum.Delta-55 label #744700 bold 2
+T.bifasciatum.Delta-56 label #744700 bold 2
+T.bifasciatum.Delta-57 label #744700 bold 2
+T.bifasciatum.Delta-61 label #744700 bold 2
+T.bifasciatum.Delta-86 label #744700 bold 2
+T.bifasciatum.Delta-87 label #744700 bold 2
+T.bifasciatum.Delta-84 label #744700 bold 2
+T.bifasciatum.Delta-85 label #744700 bold 2
+T.bifasciatum.Delta-90 label #744700 bold 2
+T.bifasciatum.Delta-91 label #744700 bold 2
+T.bifasciatum.Delta-88 label #744700 bold 2
+T.bifasciatum.Delta-89 label #744700 bold 2
+T.bifasciatum.Delta-77 label #744700 bold 2
+T.bifasciatum.Delta-78 label #744700 bold 2
+T.bifasciatum.Delta-52 label #744700 bold 2
+T.bifasciatum.Delta-53 label #744700 bold 2
+T.bifasciatum.Delta-79 label #744700 bold 2
+T.bifasciatum.Delta-82 label #744700 bold 2
+T.bifasciatum.Delta-83 label #744700 bold 2
+T.bifasciatum.Delta-80 label #744700 bold 2
+T.bifasciatum.Delta-81 label #744700 bold 2
+T.bifasciatum.Delta-63 label #744700 bold 2
+T.bifasciatum.Delta-64 label #744700 bold 2
+T.bifasciatum.Delta-65 label #744700 bold 2
+T.bifasciatum.Delta-62 label #744700 bold 2
+T.bifasciatum.Delta-66 label #744700 bold 2
+T.bifasciatum.Delta-67 label #744700 bold 2
+T.bifasciatum.Delta-68 label #744700 bold 2
+T.bifasciatum.Delta-69 label #744700 bold 2
+T.bifasciatum.Delta-58 label #744700 bold 2
+T.bifasciatum.Delta-59 label #744700 bold 2
+T.bifasciatum.Delta-60 label #744700 bold 2
+T.bifasciatum.Delta-70 label #744700 bold 2
+T.bifasciatum.Delta-71 label #744700 bold 2
+T.bifasciatum.Delta-73 label #744700 bold 2
+T.bifasciatum.Delta-75 label #744700 bold 2
+T.bifasciatum.Delta-72 label #744700 bold 2
+T.bifasciatum.Delta-76 label #744700 bold 2
+T.bifasciatum.Delta-74 label #744700 bold 2
+S.pulcher.Delta-24 label #c90076 bold 2
+N.celidotus.Delta-52 label #ce7e00 bold 2
+N.celidotus.Delta-54 label #ce7e00 bold 2
+N.celidotus.Delta-55 label #ce7e00 bold 2
+N.celidotus.Delta-53 label #ce7e00 bold 2
+N.celidotus.Delta-51 label #ce7e00 bold 2
+N.celidotus.Delta-46 label #ce7e00 bold 2
+N.celidotus.Delta-47 label #ce7e00 bold 2
+N.celidotus.Delta-49 label #ce7e00 bold 2
+N.celidotus.Delta-50 label #ce7e00 bold 2
+N.celidotus.Delta-48 label #ce7e00 bold 2
+N.celidotus.Delta-40 label #ce7e00 bold 2
+N.celidotus.Delta-41 label #ce7e00 bold 2
+N.celidotus.Delta-42 label #ce7e00 bold 2
+N.celidotus.Delta-43 label #ce7e00 bold 2
+N.celidotus.Delta-44 label #ce7e00 bold 2
+N.celidotus.Delta-45 label #ce7e00 bold 2
+N.celidotus.Delta-56 label #ce7e00 bold 2
+N.celidotus.Delta-57 label #ce7e00 bold 2
+N.celidotus.Delta-60 label #ce7e00 bold 2
+N.celidotus.Delta-58 label #ce7e00 bold 2
+N.celidotus.Delta-59 label #ce7e00 bold 2
+N.celidotus.Delta-61 label #ce7e00 bold 2
+N.celidotus.Delta-62 label #ce7e00 bold 2
+N.celidotus.Delta-63 label #ce7e00 bold 2
+N.celidotus.Delta-64 label #ce7e00 bold 2
+N.celidotus.Delta-67 label #ce7e00 bold 2
+N.celidotus.Delta-68 label #ce7e00 bold 2
+N.celidotus.Delta-69 label #ce7e00 bold 2
+N.celidotus.Delta-65 label #ce7e00 bold 2
+N.celidotus.Delta-66 label #ce7e00 bold 2
+T.bifasciatum.Delta-32 label #744700 bold 2
+C.undulatus.Delta-25 label #6a329f bold 2
+S.pulcher.Delta-14 label #c90076 bold 2
+S.pulcher.Delta-15 label #c90076 bold 2
+L.bergylta.Delta-19 label #16537e bold 2
+L.bergylta.Delta-20 label #16537e bold 2
+S.melops.Delta-16 label #8fce00 bold 2
+T.adspersus.Delta-14 label #2986cc bold 2
+L.bergylta.Delta-18 label #16537e bold 2
+S.melops.Delta-15 label #8fce00 bold 2
+T.adspersus.Delta-15 label #2986cc bold 2
+N.celidotus.Delta-29 label #ce7e00 bold 2
+N.celidotus.Delta-28 label #ce7e00 bold 2
+T.bifasciatum.Delta-33 label #744700 bold 2
+S.pulcher.Delta-13 label #c90076 bold 2
+N.celidotus.Delta-27 label #ce7e00 bold 2
+C.undulatus.Delta-26 label #6a329f bold 2
+L.bergylta.Delta-21 label #16537e bold 2
+L.bergylta.Delta-30 label #16537e bold 2
+L.bergylta.Delta-27 label #16537e bold 2
+L.bergylta.Delta-26 label #16537e bold 2
+L.bergylta.Delta-29 label #16537e bold 2
+L.bergylta.Delta-28 label #16537e bold 2
+L.bergylta.Delta-23 label #16537e bold 2
+L.bergylta.Delta-22 label #16537e bold 2
+L.bergylta.Delta-24 label #16537e bold 2
+L.bergylta.Delta-25 label #16537e bold 2
+S.melops.Delta-14 label #8fce00 bold 2
+T.adspersus.Delta-13 label #2986cc bold 2
+
+#leaf label for node 9031 will be displayed in yellow, bold italic and half the regular font size
+#9031 label #ffff00 bold-italic 0.5
+
+#leaf label for node 8015 will be displayed in blue
+#8015 label #0000ff
+
+#leaf label for node 9606 will have a semi-transparent red background
+#9606 label_background rgba(255,0,0,0.5)
