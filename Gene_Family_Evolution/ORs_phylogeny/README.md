@@ -357,6 +357,6 @@ while (<FAS>) {
 ```bash 
 # Example
 # Kang@fishlab3 Thu Oct 13 15:54:57 /media/HDD/cleaner_fish/genome/OR_detection/ORs_class
-perl temp3.pl Beta-C.fasta
-perl temp4.pl Beta-C.fasta
+perl temp3.pl Beta-C.fasta # For node shape: dataset_symbols_template.txt
+perl temp4.pl Beta-C.fasta # For label colour: colors_styles_template.txt
 ```
