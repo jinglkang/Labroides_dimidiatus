@@ -360,3 +360,20 @@ while (<FAS>) {
 perl temp3.pl Beta-C.fasta # For node shape: dataset_symbols_template.txt
 perl temp4.pl Beta-C.fasta # For label colour: colors_styles_template.txt
 ```
+## Only select Ncel (N.celidotus), Tbif (T.bifasciatum), Ldim (L.dimidiatus)
+```bash
+# Kang@fishlab3 Fri Oct 14 09:45:48 /media/HDD/cleaner_fish/genome/OR_detection/ORs_class
+mkdir Subspe_ORs_class
+# Kang@fishlab3 Fri Oct 14 09:49:46 /media/HDD/cleaner_fish/genome/OR_detection
+perl temp9.pl
+# Kang@fishlab3 Fri Oct 14 09:51:47 /media/HDD/cleaner_fish/genome/OR_detection/ORs_class/Subspe_ORs_class
+cp ../temp*.pl ./
+#(base) kang1234@celia-PowerEdge-T640 Fri Oct 14 09:53:05 ~/genome/ORs_phy
+mkdir ORs_subspe
+# Kang@fishlab3 Fri Oct 14 09:54:29 /media/HDD/cleaner_fish/genome/OR_detection/ORs_class/Subspe_ORs_class
+perl temp2.pl Delta-C.fasta
+# Then build the phylogenetic tree for Delta and Zeta
+# (base) kang1234@celia-PowerEdge-T640 Fri Oct 14 09:55:57 ~/genome/ORs_phy/ORs_subspe
+nohup raxmlHPC -T 24 -f a -m PROTGAMMAAUTO -p 12345 -x 12345 -# 100 -s Delta-C_align_trim_conc.phy -o NP_001471.2.NonOR_8,NP_001043.2.NonOR_9,NP_000667.1.NonOR_3,NP_000675.1.NonOR_2,NP_000862.1.NonOR_7,NP_071640.1.NonOR_4,NP_000671.2.NonOR_1,NP_000854.1.NonOR_5,NP_000857.1.NonOR_6 -n Delta-C >Delta-C.process 2>&1 &
+# [1] 11846
+```
