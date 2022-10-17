@@ -377,3 +377,239 @@ perl temp2.pl Delta-C.fasta
 nohup raxmlHPC -T 24 -f a -m PROTGAMMAAUTO -p 12345 -x 12345 -# 100 -s Delta-C_align_trim_conc.phy -o NP_001471.2.NonOR_8,NP_001043.2.NonOR_9,NP_000667.1.NonOR_3,NP_000675.1.NonOR_2,NP_000862.1.NonOR_7,NP_071640.1.NonOR_4,NP_000671.2.NonOR_1,NP_000854.1.NonOR_5,NP_000857.1.NonOR_6 -n Delta-C >Delta-C.process 2>&1 &
 # [1] 11846
 ```
+## CAFE for ORs of all species
+### do the ORs corrections for the reference species
+```temp1.pl
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+my %species=(
+    'Spottedgar' => 'Spottedgar',
+    'Zebrafish_2' => 'Zebrafish',
+    'Medaka_2'=> 'Medaka',
+    'Platyfish'=>'Platyfish',
+    'Fugu'=>'Fugu',
+    'Stickleback'=>'Stickleback',
+    'Spul'=>'S.pulcher',
+    'Cund'=>'C.undulatus',
+    'Lber'=>'L.bergylta',
+    'Tads'=>'T.adspersus',
+    'Smel'=>'S.melops',
+    'Ncel'=>'N.celidotus',
+    'Tbif'=>'T.bifasciatum',
+    'Ldim'=>'L.dimidiatus',
+    );
+
+my @groups=<*_ORs_group.txt>;
+foreach my $group (@groups) {
+    (my $spe)=$group=~/(.*?)_ORs_group\.txt/;
+#    my $new=$spe."_ORs_group_name.txt";
+    my $new_spe=$species{$spe};
+    my %hash;
+    open GROUP, $group or die "can not open $group\n$!\n";
+#    open NEW,  ">$new" or die "can not open $new\n$!\n";
+    while (<GROUP>) {
+        chomp;
+        if (/^#/) {
+            next;
+        } else {
+            my @a=split /\t/;
+            my ($str, $grp);
+            if ($a[0]=~/-(\D)$/) {
+                $str=$1;
+            } elsif ($a[0]=~/\|(\D)$/) {
+                $str=$1;
+            }
+            ($grp)=$a[1];
+            $hash{$grp}->{$str}++;
+            if ($str eq "C") {
+                my $name=$new_spe.".$grp\-$hash{$grp}->{$str}";
+                $_=~s/\|/\:/g;
+                print "$_\t$name\n";
+            } else {
+                my $name=$new_spe.".$grp\-$str\-$hash{$grp}->{$str}";
+                $_=~s/\|/\:/g;
+                print "$_\t$name\n";
+            }
+        }
+    }
+}
+```
+```bash
+# kangjingliang@kangjingliangdeMacBook-Pro 三 10 12 17:52:39 ~/Desktop
+perl temp1.pl >all_ORs_spes_rename.txt
+scp all_ORs_spes_rename.txt Kang@147.8.76.231:/media/HDD/cleaner_fish/genome/OR_detection/
+```
+```temp10.pl
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+my %pep;
+my $ORnm;
+my $ORpep="all_ORs_original_predict.fasta";
+open ORPEP, $ORpep or die "can not open $!\n$ORpep\n";
+while (<ORPEP>) {
+        chomp;
+        if (/>/) {
+                s/^>//;
+                my @a=split;
+                $ORnm=$a[0];
+        } else {
+                $pep{$ORnm}.=$_;
+        }
+}
+
+# include the zebrafish pep seq for classify
+my $Rule="Cheilinus_undulatus/group/ruler.fa";
+my $clas_nm;
+my @clas_nms;
+my %Class;
+open RULE, $Rule or die "can not open $Rule\n$!\n";
+while (<RULE>) {
+        chomp;
+        if (/>/) {
+                s/>//;
+                $clas_nm=$_;
+                push @clas_nms, $clas_nm;
+        } else {
+                $Class{$clas_nm}.=$_;
+        }
+}
+
+my $NonOR;
+foreach my $gene (@clas_nms) {
+        if ($gene=~/NonOR/) {
+                $NonOR.=">$gene\n$Class{$gene}\n";
+        }
+}
+
+my $dir="ORs_class/Allspes_ORs";
+my $fnm="all_ORs_spes_rename.txt";
+open FNM, $fnm or die "can not open $!\n$fnm\n";
+while (<FNM>) {
+        chomp;
+        my @a=split /\t/;
+        my ($str, $grp, $spe);
+        if ($a[2]=~/(\D\..*?)\./) {
+                $spe=$1;
+        } elsif ($a[2]=~/(\D+\.*?)\./) {
+                $spe=$1;
+        } else {
+                die "no species detected\n";
+        }
+        $grp=$a[1];
+        if ($a[0]=~/\-(\D)$/) {
+                $str=$1;
+        } elsif ($a[0]=~/\:(\D)$/) {
+                $str=$1;
+        } else {
+                die "no gene structure detected\n";
+        }
+        my $file=$grp."-".$str.".fasta";
+
+#        if ( ($spe eq "N.celidotus") || ($spe eq "T.bifasciatum") || ($spe eq "L.dimidiatus") ) {
+                if (-e "$dir/$file") {
+                open FILE, ">>$dir/$file" or die "can not open $!\n$file\n";
+                print FILE ">$a[2]\n$pep{$a[0]}\n";
+                } else {
+                open FILE, ">$dir/$file" or die "can not open $!\n$file\n";
+                print FILE "$NonOR";
+                print FILE ">$a[2]\n$pep{$a[0]}\n";
+                }
+#        }
+}
+```
+```bash
+# Kang@fishlab3 Mon Oct 17 11:09:34 /media/HDD/cleaner_fish/genome/OR_detection
+mkdir ORs_class/Allspes_ORs
+# The previous Stickleback sequences contain multiple repeats per OR (remove them)
+# Kang@fishlab3 Mon Oct 17 11:27:33 /media/HDD/cleaner_fish/genome/OR_detection
+cat */group/filter.out.1.info.fasta >all_ORs_original_predict.fasta
+perl temp10.pl
+```
+
+```temp1.pl
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+my %species=(
+    'Spottedgar' => 'Spottedgar',
+    'Zebrafish' => 'Zebrafish',
+    'Medaka'=> 'Medaka',
+    'Platyfish'=>'Platyfish',
+    'Fugu'=>'Fugu',
+    'Stickleback'=>'Stickleback',
+    'S.pulcher' => 'Semicossyphuspulcher',
+    'C.undulatus' => 'Cheilinusundulatus',
+    'L.bergylta' => 'Labrusbergylta',
+    'T.adspersus' => 'Tautogolabrusadspersus',
+    'S.melops' => 'Symphodusmelops',
+    'N.celidotus' => 'Notolabruscelidotus',
+    'T.bifasciatum' => 'Thalassomabifasciatum',
+    'L.dimidiatus' => 'Labroidesdimidiatus',
+    );
+
+my @spes=qw(Spottedgar Zebrafish Medaka Platyfish Fugu Stickleback S.pulcher C.undulatus L.bergylta T.adspersus S.melops N.celidotus T.bifasciatum L.dimidiatus);
+
+my @groups=@ARGV;
+my %hash;
+foreach my $group (@groups) {
+    my ($grpnm, $spe, $str);
+    ($grpnm, $str)=$group=~/(.*)\-(\D)\.fasta/;
+    open GRP, $group or die "can not open $group\n$!\n";
+    while (<GRP>) {
+        chomp;
+        if (/\>/ && ! /NonOR/) {
+            ($spe)=$_=~/\>(.*)\./;
+            $hash{$grpnm}->{$spe}++;
+        }
+    }
+}
+
+my $header;
+foreach my $spe (@spes) {
+    my $newspe=$species{$spe};
+    $header.=$newspe."\t";
+}
+$header=~s/\s+$//;
+print "Desc\tFamily ID\t$header\n";
+
+foreach my $grpnm (sort keys %hash) {
+    my $info;
+    foreach my $spe (@spes) {
+        my $nb;
+        $hash{$grpnm}->{$spe}?($nb=$hash{$grpnm}->{$spe}):($nb=0);
+#        my $nb=$hash{$grpnm}->{$spe};
+        $info.=$nb."\t";
+    }
+    $info=~s/\s+$//;
+    print "(null)\t$grpnm\t$info\n";
+}
+```
+
+```bash
+# Prepare the input for CAFE
+# Kang@fishlab3 Mon Oct 17 14:56:38 /media/HDD/cleaner_fish/genome/OR_detection/ORs_class/Allspes_ORs
+perl temp1.pl *-C.fasta >ORs_C_nb.txt
+scp ORs_C_nb.txt kang1234@147.8.76.177:~/genome/gene_family
+```
+### CAFE
+```bash
+# (base) kang1234@celia-PowerEdge-T640 Mon Oct 17 15:12:16 ~/genome/gene_family
+mkdir ORs
+vi ORs.cafe
+```
+```ORs.cafe
+load -i ORs_C_nb.txt -t 20 -l ORs/log_run1.txt -p 0.01 -r 10000
+tree ((((((((((Symphodusmelops:12.207213,Tautogolabrusadspersus:12.207213):4.220335,Labrusbergylta:16.427548):16.178243,Cheilinusundulatus:32.605791):3.790756,((Labroidesdimidiatus:14.975052,Thalassomabifasciatum:14.975052):11.654002,Notolabruscelidotus:26.629053):9.767494):3.822500,Semicossyphuspulcher:40.219047):26.542146,Stickleback:66.761193):7.420018,Fugu:74.181211):5.877738,(Platyfish:68.523066,Medaka:68.523066):11.535883):76.471051,Zebrafish:156.530000):94.757281,Spottedgar:251.287281)
+lambda -s -t ((((((((((1,1)1,1)1,1)1,((1,1)1,1)1)1,1)1,1)1,1)1,(1,1)1)1,1)1,1)
+report ORs/report_run1
+```
+```bash
+# (base) kang1234@celia-PowerEdge-T640 Mon Oct 17 15:27:58 ~/genome/gene_family
+cafe ORs.cafe
+python2 report_analysis.py -i ORs/report_run1.cafe -o ORs/summary_run1
+```
