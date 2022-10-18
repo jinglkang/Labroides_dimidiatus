@@ -59,7 +59,7 @@ foreach my $gene (@clas_nms) {
 }
 
 foreach my $name (sort keys %pep) {
-        if ($pfam{$name}) {
+        if ($pfam{$name}=~/7tm/i) {
                 print ">$name\n$pep{$name}\n";
         }
 }
