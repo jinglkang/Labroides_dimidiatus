@@ -147,14 +147,14 @@ foreach my $spe (@species) {
                 (my $nm)=$pep=~/.*\_(.*)\_.*/;
                 if ($blast{$nm} && $pfam{$pep}=~/Cadherin/i) {
                         (my $nb)=$pfam{$pep}=~s/Cadherin/Cadherin/g;
-                        print ">$pep\n$pepseq{$pep}\n" if $nb>=6;
+                        print ">$pep\n$pepseq{$pep}\n" if $nb>=6 && $pep !~ /F$/;
                 }
         }
 }
 ```
 
 ```bash
-# revise the keyword "/Protocadherin gamma/"
+# revise the keyword "/Protocadherin gamma/" && not contain the predicted pseudogene genes
 perl temp7.pl >1.fa
 muscle -in 1.fa -out 1_align.fa
 trimal -in 1_align.fa -out 1_align_trim.fa -gt 0.8 -st 0.001 -cons 60
@@ -163,11 +163,11 @@ fasta2phy.pl 1_align_trim_conc.fa >1_align_trim_conc.phy
 scp 1_align_trim_conc.phy kang1234@147.8.76.177:~/genome/gene_family/Cadherin/Gamma_allspe.phy
 # (base) kang1234@celia-PowerEdge-T640 Fri Oct 21 00:39:16 ~/genome/gene_family/Cadherin
 nohup raxmlHPC -T 24 -f a -m PROTGAMMAAUTO -p 12345 -x 12345 -# 100 -s Gamma_allspe.phy -n Gamma_allspe >Gamma_allspe.process 2>&1 &
-# [1] 31887
+# [1] 32363
 ```
 ### Protocadherin alpha genes
 ```bash
-# revise the keyword "/Protocadherin alpha/"
+# revise the keyword "/Protocadherin alpha/" && not contain the predicted pseudogene genes
 perl temp7.pl >1.fa
 muscle -in 1.fa -out 1_align.fa
 trimal -in 1_align.fa -out 1_align_trim.fa -gt 0.8 -st 0.001 -cons 60
