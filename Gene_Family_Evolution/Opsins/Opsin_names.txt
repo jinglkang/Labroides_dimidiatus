@@ -1,0 +1,14 @@
+Blue-sensitive opsin  opn1sw2
+Green-sensitive opsin kfh-g
+Green-sensitive opsin-1 opn1mw1
+Green-sensitive opsin-2 opn1mw2
+Green-sensitive opsin-3 opn1mw3
+Green-sensitive opsin-4 opn1mw4
+Opsin-1, short-wave-sensitive 1 opn1sw1
+Opsin-1, short-wave-sensitive 2 opn1sw2
+Red-sensitive opsin opn1lw1
+Red-sensitive opsin-1 opn1lw1
+Red-sensitive opsin-2 opn1lw2
+Rhodopsin rho 
+Rhodopsin (Fragment)  rho
+Short-wave-sensitive opsin 1  opn1sw1
