@@ -164,3 +164,9 @@ scp Predict_Opsins.phy kang1234@147.8.76.177:~/genome/gene_family/Opsins
 nohup raxmlHPC -T 24 -f a -m PROTGAMMAAUTO -p 12345 -x 12345 -# 100 -s Predict_Opsins.phy -o Fugu_ENSTRUG00000004747,Fugu_ENSTRUG00000013247,Spottedgar_ENSLOCG00000004577 -n Opsins >Opsins.process 2>&1 &
 # [1] 12593
 ```
+## iTol plot
+```bash
+# Kang@fishlab3 Fri Oct 21 18:01:06 /media/HDD/cleaner_fish/genome/Opsin_new
+perl label_color.pl Predict_Opsins_Pinopsins.fa|less
+perl node_symbol.pl Predict_Opsins_Pinopsins.fa|less
+```
