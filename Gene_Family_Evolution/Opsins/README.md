@@ -153,11 +153,13 @@ system("rm $allseq $align $trim $conc");
 # "1.txt": Pinopsin
 # (base) kang1234@celia-PowerEdge-T640 Fri Oct 21 12:57:26 ~/genome/Gene_annotation
 perl Create_query_seqs.pl 1.txt >Pinopsins.fa
+# Remove the sequence of "Spottedgar_ENSLOCG00000001991" from Pinopsins.fa
+
 # Kang@fishlab3 Fri Oct 21 13:00:56 /media/HDD/cleaner_fish/genome/Opsin_new
 scp kang1234@147.8.76.177:~/genome/Gene_annotation/Pinopsins.fa ./
 # Kang@fishlab3 Fri Oct 21 13:10:57 /media/HDD/cleaner_fish/genome/Opsin_new
 perl temp3.pl
 scp Predict_Opsins.phy kang1234@147.8.76.177:~/genome/gene_family/Opsins
-nohup raxmlHPC -T 24 -f a -m PROTGAMMAAUTO -p 12345 -x 12345 -# 100 -s Predict_Opsins.phy -o Fugu_ENSTRUG00000004747,Fugu_ENSTRUG00000013247,Spottedgar_ENSLOCG00000001991,Spottedgar_ENSLOCG00000004577 -n Opsins >Opsins.process 2>&1 &
-# [1] 7813
+nohup raxmlHPC -T 24 -f a -m PROTGAMMAAUTO -p 12345 -x 12345 -# 100 -s Predict_Opsins.phy -o Fugu_ENSTRUG00000004747,Fugu_ENSTRUG00000013247,Spottedgar_ENSLOCG00000004577 -n Opsins >Opsins.process 2>&1 &
+# [1] 12593
 ```
