@@ -1,0 +1,207 @@
+DATASET_SYMBOL
+#Symbol datasets allow the display of various symbols on the branches of the tree. For each node, one or more symbols can be defined.
+#Each symbol's color, size and position along the branch can be specified.
+
+#lines starting with a hash are comments and ignored during parsing
+#=================================================================#
+#                    MANDATORY SETTINGS                           #
+#=================================================================#
+#select the separator which is used to delimit the data below (TAB,SPACE or COMMA).This separator must be used throughout this file.
+#SEPARATOR TAB
+#SEPARATOR SPACE
+SEPARATOR COMMA
+
+#label is used in the legend table (can be changed later)
+DATASET_LABEL,example symbols
+
+#dataset color (can be changed later)
+COLOR,#000000
+
+#=================================================================#
+#                    OPTIONAL SETTINGS                            #
+#=================================================================#
+
+
+#=================================================================#
+#     all other optional settings can be set or changed later     #
+#           in the web interface (under 'Datasets' tab)           #
+#=================================================================#
+
+#Each dataset can have a legend, which is defined using LEGEND_XXX fields below
+#For each row in the legend, there should be one shape, color and label.
+#Optionally, you can define an exact legend position using LEGEND_POSITION_X and LEGEND_POSITION_Y. To use automatic legend positioning, do NOT define these values
+#Optionally, shape scaling can be present (LEGEND_SHAPE_SCALES). For each shape, you can define a scaling factor between 0 and 1.
+#Optionally, shapes can be inverted (LEGEND_SHAPE_INVERT). When inverted, shape border will be drawn using the selected color, and the fill color will be white.
+#To order legend entries horizontally instead of vertically, set LEGEND_HORIZONTAL to 1
+#Shape should be a number between 1 and 6, or any protein domain shape definition.
+#1: square
+#2: circle
+#3: star
+#4: right pointing triangle
+#5: left pointing triangle
+#6: checkmark
+
+#LEGEND_TITLE,Dataset legend
+#LEGEND_POSITION_X,100
+#LEGEND_POSITION_Y,100
+#LEGEND_HORIZONTAL,0
+#LEGEND_SHAPES,1,2,3
+#LEGEND_COLORS,#ff0000,#00ff00,#0000ff
+#LEGEND_LABELS,value1,value2,value3
+#LEGEND_SHAPE_SCALES,1,1,0.5
+#LEGEND_SHAPE_INVERT,0,0,0
+
+
+#largest symbol will be displayed with this size, others will be proportionally smaller.
+MAXIMUM_SIZE,50
+
+#symbols can be filled with solid color, or a gradient
+#GRADIENT_FILL,1
+
+#Internal tree nodes can be specified using IDs directly, or using the 'last common ancestor' method described in iTOL help pages
+#=================================================================#
+#       Actual data follows after the "DATA" keyword              #
+#=================================================================#
+#the following fields are required for each node:
+#ID,symbol,size,color,fill,position,label
+#symbol should be a number between 1 and 5:
+#1: rectangle
+#2: circle
+#3: star
+#4: right pointing triangle
+#5: left pointing triangle
+#6: checkmark
+
+#size can be any number. Maximum size in the dataset will be displayed using MAXIMUM_SIZE, while others will be proportionally smaller
+#color can be in hexadecimal, RGB or RGBA notation. If RGB or RGBA are used, dataset SEPARATOR cannot be comma.
+#fill can be 1 or 0. If set to 0, only the outline of the symbol will be displayed.
+#position is a number between 0 and 1 and defines the position of the symbol on the branch (for example, position 0 is exactly at the start of node branch, position 0.5 is in the middle, and position 1 is at the end)
+
+DATA
+#Examples
+
+#internal node will have a red filled circle in the middle of the branch
+#9606|184922,2,10,#ff0000,1,0.5
+
+#node 100379 will have a blue star outline at the start of the branch, half the size of the circle defined above (size is 5 compared to 10 above)
+#100379,3,5,#0000ff,0,0
+#node 100379 will also have a filled green rectangle in the middle of the branch, same size as the circle defined above (size is 10)
+Fugu_ENSTRUG00000004747,1,10,#e6e6e6,1,1
+Fugu_ENSTRUG00000013247,1,10,#e6e6e6,1,1
+Spottedgar_ENSLOCG00000004577,1,10,#e6e6e6,1,1
+Cund_OPSB_1T,1,10,#e6e6e6,1,1
+Cund_OPSB_2T,1,10,#e6e6e6,1,1
+Cund_OPSB_3T,1,10,#e6e6e6,1,1
+Cund_OPSD_1C,1,10,#e6e6e6,1,1
+Cund_OPSD_2C,1,10,#e6e6e6,1,1
+Cund_OPSG4_1C,1,10,#e6e6e6,1,1
+Cund_OPSG4_2C,1,10,#e6e6e6,1,1
+Cund_OPSG_1C,1,10,#e6e6e6,1,1
+Cund_OPSG_2C,1,10,#e6e6e6,1,1
+Cund_OPSG_3T,1,10,#e6e6e6,1,1
+Cund_OPSR_1C,1,10,#e6e6e6,1,1
+Cund_OPSR_2C,1,10,#e6e6e6,1,1
+Cund_OPSR_3C,1,10,#e6e6e6,1,1
+Cund_OPSR_4C,1,10,#e6e6e6,1,1
+Cund_OPSR_5C,1,10,#e6e6e6,1,1
+Cund_OPSV_1C,1,10,#e6e6e6,1,1
+Fugu_OPSB_1T,1,10,#e6e6e6,1,1
+Fugu_OPSD_1C,1,10,#e6e6e6,1,1
+Fugu_OPSD_2C,1,10,#e6e6e6,1,1
+Fugu_OPSG4_1C,1,10,#e6e6e6,1,1
+Fugu_OPSG_1C,1,10,#e6e6e6,1,1
+Fugu_OPSR_1C,1,10,#e6e6e6,1,1
+Lber_OPSB_1T,1,10,#e6e6e6,1,1
+Lber_OPSD_2C,1,10,#e6e6e6,1,1
+Lber_OPSG4_1C,1,10,#e6e6e6,1,1
+Lber_OPSG_1C,1,10,#e6e6e6,1,1
+Lber_OPSG_2C,1,10,#e6e6e6,1,1
+Lber_OPSG_3C,1,10,#e6e6e6,1,1
+Lber_OPSR_2C,1,10,#e6e6e6,1,1
+Lber_OPSV_1C,1,10,#e6e6e6,1,1
+Lber_OPSV_2C,1,10,#e6e6e6,1,1
+Ldim_OPSB_1T,1,10,#000000,1,1
+Ldim_OPSD_1C,1,10,#000000,1,1
+Ldim_OPSD_2C,1,10,#000000,1,1
+Ldim_OPSG4_1C,1,10,#000000,1,1
+Ldim_OPSG_2C,1,10,#000000,1,1
+Ldim_OPSG_3T,1,10,#000000,1,1
+Ldim_OPSR_1C,1,10,#000000,1,1
+Ldim_OPSV_1C,1,10,#000000,1,1
+Medaka_OPSB_1T,1,10,#e6e6e6,1,1
+Medaka_OPSB_2T,1,10,#e6e6e6,1,1
+Medaka_OPSD_1C,1,10,#e6e6e6,1,1
+Medaka_OPSD_2C,1,10,#e6e6e6,1,1
+Medaka_OPSG_1T,1,10,#e6e6e6,1,1
+Medaka_OPSG_2P,1,10,#e6e6e6,1,1
+Medaka_OPSG_3C,1,10,#e6e6e6,1,1
+Medaka_OPSR_1C,1,10,#e6e6e6,1,1
+Medaka_OPSR_2C,1,10,#e6e6e6,1,1
+Medaka_OPSV_1C,1,10,#e6e6e6,1,1
+Ncel_OPSB_1T,1,10,#e6e6e6,1,1
+Ncel_OPSD_1C,1,10,#e6e6e6,1,1
+Ncel_OPSG4_2C,1,10,#e6e6e6,1,1
+Ncel_OPSG_1C,1,10,#e6e6e6,1,1
+Ncel_OPSG_2T,1,10,#e6e6e6,1,1
+Ncel_OPSG_3C,1,10,#e6e6e6,1,1
+Ncel_OPSR_1C,1,10,#e6e6e6,1,1
+Ncel_OPSV_1C,1,10,#e6e6e6,1,1
+Platyfish_OPSB_1C,1,10,#e6e6e6,1,1
+Platyfish_OPSB_2C,1,10,#e6e6e6,1,1
+Platyfish_OPSD_1C,1,10,#e6e6e6,1,1
+Platyfish_OPSD_2C,1,10,#e6e6e6,1,1
+Platyfish_OPSG_1C,1,10,#e6e6e6,1,1
+Platyfish_OPSG_2C,1,10,#e6e6e6,1,1
+Platyfish_OPSR_1C,1,10,#e6e6e6,1,1
+Platyfish_OPSR_2C,1,10,#e6e6e6,1,1
+Platyfish_OPSR_3C,1,10,#e6e6e6,1,1
+Platyfish_OPSR_4C,1,10,#e6e6e6,1,1
+Platyfish_OPSV_1C,1,10,#e6e6e6,1,1
+Smel_OPSB_1T,1,10,#999999,1,1
+Smel_OPSD_1C,1,10,#999999,1,1
+Smel_OPSD_2C,1,10,#999999,1,1
+Smel_OPSG4_1C,1,10,#999999,1,1
+Smel_OPSG_1C,1,10,#999999,1,1
+Smel_OPSG_2C,1,10,#999999,1,1
+Smel_OPSG_3T,1,10,#999999,1,1
+Smel_OPSR_1C,1,10,#999999,1,1
+Smel_OPSV_1C,1,10,#999999,1,1
+Spottedgar_OPSB_1C,1,10,#e6e6e6,1,1
+Spottedgar_OPSB_2C,1,10,#e6e6e6,1,1
+Spottedgar_OPSB_3C,1,10,#e6e6e6,1,1
+Spottedgar_OPSD_1C,1,10,#e6e6e6,1,1
+Spottedgar_OPSG_1C,1,10,#e6e6e6,1,1
+Spottedgar_OPSR_1C,1,10,#e6e6e6,1,1
+Spul_OPSB_1T,1,10,#999999,1,1
+Spul_OPSD_1C,1,10,#999999,1,1
+Spul_OPSD_2C,1,10,#999999,1,1
+Spul_OPSG4_1C,1,10,#999999,1,1
+Spul_OPSG_1C,1,10,#999999,1,1
+Spul_OPSG_2T,1,10,#999999,1,1
+Spul_OPSG_3C,1,10,#999999,1,1
+Spul_OPSR_1C,1,10,#999999,1,1
+Spul_OPSV_1C,1,10,#999999,1,1
+Stickleback_OPSB_1T,1,10,#e6e6e6,1,1
+Stickleback_OPSG4_1C,1,10,#e6e6e6,1,1
+Stickleback_OPSG_1C,1,10,#e6e6e6,1,1
+Stickleback_OPSR_1C,1,10,#e6e6e6,1,1
+Stickleback_OPSV_1C,1,10,#e6e6e6,1,1
+Tbif_OPSB_1T,1,10,#999999,1,1
+Tbif_OPSD_1C,1,10,#999999,1,1
+Tbif_OPSD_2C,1,10,#999999,1,1
+Tbif_OPSG4_1C,1,10,#999999,1,1
+Tbif_OPSG4_2C,1,10,#999999,1,1
+Tbif_OPSG_1C,1,10,#999999,1,1
+Tbif_OPSG_2T,1,10,#999999,1,1
+Tbif_OPSR_1C,1,10,#999999,1,1
+Tbif_OPSV_1C,1,10,#999999,1,1
+Zebrafish_OP1S1_1C,1,10,#e6e6e6,1,1
+Zebrafish_OP1S2_1C,1,10,#e6e6e6,1,1
+Zebrafish_OPSD_1C,1,10,#e6e6e6,1,1
+Zebrafish_OPSD_2C,1,10,#e6e6e6,1,1
+Zebrafish_OPSG1_1C,1,10,#e6e6e6,1,1
+Zebrafish_OPSG2_1C,1,10,#e6e6e6,1,1
+Zebrafish_OPSG3_1C,1,10,#e6e6e6,1,1
+Zebrafish_OPSG4_1C,1,10,#e6e6e6,1,1
+Zebrafish_OPSR1_1C,1,10,#e6e6e6,1,1
+Zebrafish_OPSR2_1C,1,10,#e6e6e6,1,1
