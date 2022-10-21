@@ -177,3 +177,21 @@ scp 1_align_trim_conc.phy kang1234@147.8.76.177:~/genome/gene_family/Cadherin/Al
 nohup raxmlHPC -T 24 -f a -m PROTGAMMAAUTO -p 12345 -x 12345 -# 100 -s Alpha_allspe.phy -n Alpha_allspe >Alpha_allspe.process 2>&1 &
 # [1] 3354
 ```
+### iTol set the node shape and label colour
+```bash
+# Kang@fishlab3 Fri Oct 21 10:51:43 /media/HDD/cleaner_fish/genome/Protocadherin_new
+perl temp4.pl 1.fa|less
+# Kang@fishlab3 Fri Oct 21 10:51:53 /media/HDD/cleaner_fish/genome/Protocadherin_new
+perl temp5.pl 1.fa|less
+```
+### Summary the genes number per species
+```bash
+# Gamma
+# (base) kang1234@celia-PowerEdge-T640 Fri Oct 21 10:36:28 ~/genome/gene_family/Cadherin
+less Gamma_allspe.phy|perl -alne 'next if /^\d+/;if ($F[0]=~/(.*?)_(.*?)_.*/ && $2 eq "PCDGM"){$hash{$1}++};END{foreach $sp (qw(Ldim Tbif Smel Tads Spul Ncel Lber Cund)){print "$sp\t$hash{$sp}"}}'
+less Gamma_allspe.phy|perl -alne 'next if /^\d+/;unless ($F[0]=~/(.*?)_(.*?)_.*/ && $2 eq "PCDGM"){$hash{$1}++};END{foreach $sp (qw(Ldim Tbif Smel Tads Spul Ncel Lber Cund)){print "$sp\t$hash{$sp}"}}'
+# Alpha
+# (base) kang1234@celia-PowerEdge-T640 Fri Oct 21 10:46:58 ~/genome/gene_family/Cadherin
+less Alpha_allspe.phy|perl -alne 'next if /^\d+/;if ($F[0]=~/(.*?)_(.*?)_.*/ && $2 eq "PCDC2"){$hash{$1}++};END{foreach $sp (qw(Ldim Tbif Smel Tads Spul Ncel Lber Cund)){print "$sp\t$hash{$sp}"}}'
+less Alpha_allspe.phy|perl -alne 'next if /^\d+/;unless ($F[0]=~/(.*?)_(.*?)_.*/ && $2 eq "PCDC2"){$hash{$1}++};END{foreach $sp (qw(Ldim Tbif Smel Tads Spul Ncel Lber Cund)){print "$sp\t$hash{$sp}"}}'
+```
