@@ -169,4 +169,6 @@ nohup raxmlHPC -T 24 -f a -m PROTGAMMAAUTO -p 12345 -x 12345 -# 100 -s Predict_O
 # Kang@fishlab3 Fri Oct 21 18:01:06 /media/HDD/cleaner_fish/genome/Opsin_new
 perl label_color.pl Predict_Opsins_Pinopsins.fa|less
 perl node_symbol.pl Predict_Opsins_Pinopsins.fa|less
+# Then copy into files ("node_symbols_style.txt"; "label_colors_style.txt")
 ```
+
