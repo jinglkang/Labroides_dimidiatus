@@ -165,7 +165,7 @@ mv 1_align_trim_conc.phy Gamma_allspe.phy
 scp Gamma_allspe.phy kang1234@147.8.76.177:~/genome/gene_family/Cadherin/
 # (base) kang1234@celia-PowerEdge-T640 Fri Oct 21 00:39:16 ~/genome/gene_family/Cadherin
 nohup raxmlHPC -T 24 -f a -m PROTGAMMAAUTO -p 12345 -x 12345 -# 100 -s Gamma_allspe.phy -n Gamma_allspe >Gamma_allspe.process 2>&1 &
-# [1] 32363
+# [1] 5480
 ```
 ### Protocadherin alpha genes
 ```bash
