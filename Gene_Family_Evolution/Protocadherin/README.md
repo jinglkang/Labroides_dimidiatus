@@ -173,9 +173,10 @@ muscle -in 1.fa -out 1_align.fa
 trimal -in 1_align.fa -out 1_align_trim.fa -gt 0.8 -st 0.001 -cons 60
 perl temp6.pl 1_align_trim.fa >1_align_trim_conc.fa
 fasta2phy.pl 1_align_trim_conc.fa >1_align_trim_conc.phy
-scp 1_align_trim_conc.phy kang1234@147.8.76.177:~/genome/gene_family/Cadherin/Alpha_allspe.phy
+mv 1_align_trim_conc.phy Alpha_allspe.phy
+scp Alpha_allspe.phy kang1234@147.8.76.177:~/genome/gene_family/Cadherin/
 nohup raxmlHPC -T 24 -f a -m PROTGAMMAAUTO -p 12345 -x 12345 -# 100 -s Alpha_allspe.phy -n Alpha_allspe >Alpha_allspe.process 2>&1 &
-# [1] 3354
+# [1] 4779
 ```
 ### iTol set the node shape and label colour
 ```bash
