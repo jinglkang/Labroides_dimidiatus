@@ -198,4 +198,11 @@ less Gamma_allspe.phy|perl -alne 'next if /^\d+/;unless ($F[0]=~/(.*?)_(.*?)_.*/
 # (base) kang1234@celia-PowerEdge-T640 Fri Oct 21 10:46:58 ~/genome/gene_family/Cadherin
 less Alpha_allspe.phy|perl -alne 'next if /^\d+/;if ($F[0]=~/(.*?)_(.*?)_.*/ && $2 eq "PCDC2"){$hash{$1}++};END{foreach $sp (qw(Ldim Tbif Smel Tads Spul Ncel Lber Cund)){print "$sp\t$hash{$sp}"}}'
 less Alpha_allspe.phy|perl -alne 'next if /^\d+/;unless ($F[0]=~/(.*?)_(.*?)_.*/ && $2 eq "PCDC2"){$hash{$1}++};END{foreach $sp (qw(Ldim Tbif Smel Tads Spul Ncel Lber Cund)){print "$sp\t$hash{$sp}"}}'
+
+less Alpha_allspe.phy|perl -alne 'next if /^\d+/;if ($F[0]=~/(.*?)_(.*?)_.*/){$hash{$2}->{$1}++};END{foreach my $ge (sort keys %hash){my $info; foreach $sp (qw(Ldim Tbif Smel Tads Spul Ncel Lber Cund)){my $nb; $hash{$ge}->{$sp}?($nb=$hash{$ge}->{$sp}):($nb=0);$info.=$nb.":";};$info=~s/\:$//;print "$ge\t[$info]"}}' >Alpha_nb.txt
+perl temp8.pl Alpha_nb.txt > Alpha_nb_2.txt
+less Alpha_nb_2.txt
+# Kang@fishlab3 Tue Nov 01 09:33:29 /media/HDD/cleaner_fish/genome/Protocadherin_new
+less Gamma_allspe.phy|perl -alne 'next if /^\d+/;if ($F[0]=~/(.*?)_(.*?)_.*/){$hash{$2}->{$1}++};END{foreach my $ge (sort keys %hash){my $info; foreach $sp (qw(Ldim Tbif Smel Tads Spul Ncel Lber Cund)){my $nb; $hash{$ge}->{$sp}?($nb=$hash{$ge}->{$sp}):($nb=0);$info.=$nb.":";};$info=~s/\:$//;print "$ge\t[$info]"}}' >Gamma_nb.txt
+perl temp8.pl Gamma_nb.txt > Gamma_nb_2.txt
 ```
