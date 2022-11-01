@@ -4,8 +4,9 @@
 ```bash
 # Kang@fishlab3 Fri Oct 21 00:02:12 /media/HDD/cleaner_fish/genome/Protocadherin_new
 cat ../Protocadherin_alpha/query_protein.fasta ../Protocadherin_beta/query_protein.fasta ../Protocadherin_gamma/query_protein.fasta ../Protocadherin_non/query_protein.fasta >query_protocadherin_protein.fasta
-# Select the target predicted genes: cover>=70%; e-value<=10e-20 and gene decription inculding keyword "protocadherin"
+# Select the target predicted genes: e-value<=10e-20 and gene decription inculding keyword "protocadherin"
 nohup perl run_Fmdetect.pl /media/HDD/cleaner_fish/genome/Protocadherin_new/query_protocadherin_protein.fasta 50 >Detect_protocadherin.process 2>&1 &
+# [1] 9367
 ```
 ### Domain detection (remove "!" if the predicted gene is a pseudogene)     
 ```temp1.pl
