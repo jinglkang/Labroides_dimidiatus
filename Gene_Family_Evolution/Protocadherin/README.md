@@ -206,4 +206,25 @@ less Alpha_nb_2.txt
 # Kang@fishlab3 Tue Nov 01 09:33:29 /media/HDD/cleaner_fish/genome/Protocadherin_new
 less Gamma_allspe.phy|perl -alne 'next if /^\d+/;if ($F[0]=~/(.*?)_(.*?)_.*/){$hash{$2}->{$1}++};END{foreach my $ge (sort keys %hash){my $info; foreach $sp (qw(Ldim Tbif Smel Tads Spul Ncel Lber Cund)){my $nb; $hash{$ge}->{$sp}?($nb=$hash{$ge}->{$sp}):($nb=0);$info.=$nb.":";};$info=~s/\:$//;print "$ge\t[$info]"}}' >Gamma_nb.txt
 perl temp8.pl Gamma_nb.txt > Gamma_nb_2.txt
+
+# Extract PCDA2 (Protocadherin alpha-2: PCDHA2) for phylogeny
+# Kang@fishlab3 Tue Nov 01 10:51:45 /media/HDD/cleaner_fish/genome/Protocadherin_new
+# mv temp9.pl extract_geneseqs.pl
+perl extract_geneseqs.pl PCDA2
+mv Predict_Opsins.fa Predict_PCDA2.fa
+mv Predict_Opsins.phy Predict_PCDA2.phy
+scp Predict_PCDA2.phy kang1234@147.8.76.177:~/genome/gene_family/Glutamates
+# (base) kang1234@celia-PowerEdge-T640 Tue Nov 01 11:19:54 ~/genome/gene_family/Glutamates
+nohup raxmlHPC -T 24 -f a -m PROTGAMMAAUTO -p 12345 -x 12345 -# 100 -s Predict_PCDA2.phy -n PCDA2 >PCDA2.process 2>&1 &
+# [1] 11596
+
+# Extract PCDGB (Protocadherin gamma-A11: PCDHGA11) for phylogeny
+# Kang@fishlab3 Tue Nov 01 11:22:39 /media/HDD/cleaner_fish/genome/Protocadherin_new
+perl extract_geneseqs.pl PCDGB
+mv Predict_Opsins.fa Predict_PCDGB.fa
+mv Predict_Opsins.phy Predict_PCDGB.phy
+scp Predict_PCDGB.phy kang1234@147.8.76.177:~/genome/gene_family/Glutamates
+# (base) kang1234@celia-PowerEdge-T640 Tue Nov 01 11:19:54 ~/genome/gene_family/Glutamates
+nohup raxmlHPC -T 24 -f a -m PROTGAMMAAUTO -p 12345 -x 12345 -# 100 -s Predict_PCDGB.phy -n PCDGB >PCDGB.process 2>&1 &
+# [1] 11878
 ```
