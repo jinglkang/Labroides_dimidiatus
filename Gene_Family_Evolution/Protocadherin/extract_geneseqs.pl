@@ -27,7 +27,7 @@ foreach my $pep (sort keys %pepseq) {
     if ($pep=~/.*\_(.*)\_\d+(\D+)/) {
         $nm=$1; $str=$2;
     }
-    unless ( $str eq "F") {
+    unless ( ($str eq "F") || $pep=~/Fugu/ || $pep=~/Medaka/ || $pep=~/Platyfish/ || $pep=~/Spottedgar/ || $pep=~/Stickleback/ || $pep=~/Zebrafish/ ) {
         my $nm1=uc($nm);
         my $nm2=uc($ARGV[0]);
         print PHYSEQ ">$pep\n$seq\n" if $nm1 eq $nm2;
