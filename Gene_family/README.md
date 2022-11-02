@@ -220,12 +220,14 @@ tail -n 1 r8s_tmp.txt | cut -c 16- > r8s_ultrametric.txt
 # r8s_ultrametric.txt
 # ((((((((((Smel:12.207213,Tads:12.207213):4.220335,Lber:16.427548):16.178243,Cund:32.605791):3.790756,((Ldim:14.975052,Tbif:14.975052):11.654002,Ncel:26.629053):9.767494):3.822500,Spul:40.219047):26.542146,Stickleback:66.761193):7.420018,Fugu:74.181211):5.877738,(Platyfish:68.523066,Medaka:68.523066):11.535883):76.471051,Zebrafish:156.530000)ishack:94.757281,Spottedgar:251.287281);
 ```
-**5. Run CAFE**   
+**5. Run CAFE in SNORLAX**   
 fm_no_care_nb_filtered_conserved.txt as the input   
+the CAFE analysis results: (base) kang1234@celia-PowerEdge-T640 Wed Nov 02 12:42:30 ~/genome/gene_family/reports_gf3      
 ```bash
 # Kang@fishlab3 Fri May 13 22:02:08 /media/HDD/cleaner_fish/genome/gene_family_3/OrthoFinder/Results_May09/Orthogroups
 scp fm_no_care_nb_filtered_conserved.txt kang1234@147.8.76.177:~/genome/gene_family
 ```
+# (base) kang1234@celia-PowerEdge-T640 Wed Nov 02 12:42:30 ~/genome/gene_family/reports_gf3
 **5.1. run CAFE first time**   
 **run1_gf3.sh**   
 ```bash
