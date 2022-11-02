@@ -1,0 +1,14 @@
+Spottedgar      Spottedgar.fasta        Longest_Spottedgar_cds.fasta
+Zebrafish       Zebrafish.fasta Longest_Zebrafish_cds.fasta
+Medaka  Medaka.fasta    Longest_Medaka_cds.fasta
+Platyfish       Platyfish.fasta Longest_Platyfish_cds.fasta
+Fugu    Fugu.fasta      Longest_Fugu_cds.fasta
+Stickleback     Stickleback.fasta       Longest_Stickleback_cds.fasta
+Spul    Semicossyphus_pulcher.fasta     Longest_Semicossyphus_pulcher_cds.fasta
+Cund    Cheilinus_undulatus.fasta       Longest_Cheilinus_undulatus_cds.fasta
+Lber    Labrus_bergylta.fasta   Longest_Labrus_bergylta_cds.fasta
+Tads    Tautogolabrus_adspersus.fasta   Longest_Tautogolabrus_adspersus_cds.fasta
+Smel    Symphodus_melops.fasta  Longest_Symphodus_melops_cds.fasta
+Ncel    Notolabrus_celidotus.fasta      Longest_Notolabrus_celidotus_cds.fasta
+Tbif    Thalassoma_bifasciatum.fasta    Longest_Thalassoma_bifasciatum_cds.fasta
+Ldim    Labroides_dimidiatus.fasta      Longest_Labroides_dimidiatus_cds.fasta
