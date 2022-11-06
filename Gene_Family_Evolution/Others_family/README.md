@@ -165,7 +165,7 @@ nohup raxmlHPC -T 22 -f a -m PROTGAMMAAUTO -p 12345 -x 12345 -# 100 -s Predict_B
 # Kang@fishlab3 Fri Oct 28 10:29:15 /media/HDD/cleaner_fish/genome/BMPs
 perl ../Opsin_new/label_color.pl Predict_BMPs.fa|less
 cp ../NLRs/temp2.pl ./
-less Predict_BMPs.phy|perl -alne 'next if /^\d+/;if ($F[0]=~/(.*?)_(.*?)_.*/){$hash{$2}->{$1}++};END{foreach my $ge (sort keys %hash){my $info; foreach $sp (qw(Ldim Tbif Smel Tads Spul Ncel Lber Cund)){my $nb; $hash{$ge}->{$sp}?($nb=$hash{$ge}->{$sp}):($nb=0);$info.=$nb.":";};$info=~s/\:$//;print "$ge\t[$info]"}}' >BMPs_nb.txt
+less Predict_BMPs.phy|perl -alne 'next if /^\d+/;if ($F[0]=~/(.*?)_(.*?)_.*/){$hash{$2}->{$1}++};END{foreach my $ge (sort keys %hash){my $info; foreach $sp (qw(Ldim Tbif Smel Tads Spul Lber Ncel Cund)){my $nb; $hash{$ge}->{$sp}?($nb=$hash{$ge}->{$sp}):($nb=0);$info.=$nb.":";};$info=~s/\:$//;print "$ge\t[$info]"}}' >BMPs_nb.txt
 perl temp2.pl BMPs_nb.txt > BMPs_nb_2.txt
 ```
 
