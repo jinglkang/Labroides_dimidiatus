@@ -426,3 +426,35 @@ cp ../TRs/temp2.pl ./
 less Predict_IERs.phy|perl -alne 'next if /^\d+/;if ($F[0]=~/(.*?)_(.*?)_.*/){$hash{$2}->{$1}++};END{foreach my $ge (sort keys %hash){my $info; foreach $sp (qw(Ldim Tbif Smel Tads Spul Ncel Lber Cund)){my $nb; $hash{$ge}->{$sp}?($nb=$hash{$ge}->{$sp}):($nb=0);$info.=$nb.":";};$info=~s/\:$//;print "$ge\t[$info]"}}' >IERs_nb.txt
 perl temp2.pl IERs_nb.txt > IERs_nb_2.txt
 ```
+## Change the color of node symbol: Lber to "#999999"
+### 1. OR
+```bash
+# kangjingliang@kangjingliangdeMacBook-Pro 五 11 04 11:07:44 ~/Desktop
+scp kang1234@147.8.76.177:~/genome/ORs_phy/RAxML_bipartitions.*-C ./
+
+# Delta
+# Kang@fishlab3 Fri Nov 04 11:05:12 /media/HDD/cleaner_fish/genome/OR_detection/ORs_class
+perl label_color.pl Delta-C.fasta|less
+perl node_symbol.pl Delta-C.fasta|less
+```
+### 2. BMPs
+```bash
+# Kang@fishlab3 Fri Nov 04 15:47:12 /media/HDD/cleaner_fish/genome/BMPs
+less Predict_BMPs.phy|perl -alne 'next if /^\d+/;if ($F[0]=~/(.*?)_(.*?)_.*/){$hash{$2}->{$1}++};END{foreach my $ge (sort keys %hash){my $info; foreach $sp (qw(Ldim Tbif Smel Tads Spul Lber Ncel Cund)){my $nb; $hash{$ge}->{$sp}?($nb=$hash{$ge}->{$sp}):($nb=0);$info.=$nb.":";};$info=~s/\:$//;print "$ge\t[$info]"}}' >BMPs_nb.txt
+perl temp2.pl BMPs_nb.txt > BMPs_nb_2.txt
+```
+### 3. Crystallins
+```bash
+# Kang@fishlab3 Fri Nov 04 15:59:25 /media/HDD/cleaner_fish/genome/Crystallins
+cp ../BMPs/temp2.pl ./
+less Predict_Crystallins.phy|perl -alne 'next if /^\d+/;if ($F[0]=~/(.*?)_(.*?)_.*/){$hash{$2}->{$1}++};END{foreach my $ge (sort keys %hash){my $info; foreach $sp (qw(Ldim Tbif Smel Tads Spul Lber Ncel Cund)){my $nb; $hash{$ge}->{$sp}?($nb=$hash{$ge}->{$sp}):($nb=0);$info.=$nb.":";};$info=~s/\:$//;print "$ge\t[$info]"}}' >Crystallins_nb.txt
+perl temp2.pl Crystallins_nb.txt > Crystallins_nb_2.txt
+```
+
+### 3. Opsin
+```bash
+# Kang@fishlab3 Sun Nov 06 15:49:14 /media/HDD/cleaner_fish/genome/Opsin_new
+cp ../BMPs/temp2.pl ./ temp4.pl
+less Predict_Opsins.phy|perl -alne 'next if /^\d+/;if ($F[0]=~/(.*?)_(.*?)_.*/){$hash{$2}->{$1}++};END{foreach my $ge (sort keys %hash){my $info; foreach $sp (qw(Ldim Tbif Smel Tads Spul Lber Ncel Cund)){my $nb; $hash{$ge}->{$sp}?($nb=$hash{$ge}->{$sp}):($nb=0);$info.=$nb.":";};$info=~s/\:$//;print "$ge\t[$info]"}}' >Opsins_nb.txt
+perl temp4.pl Opsins_nb.txt > Opsins_nb_2.txt
+```
