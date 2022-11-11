@@ -42,9 +42,10 @@ my @nocl2=qw(Ncel); # compare to "Node25"
 &Detect_Nons(\@nocl2, "Node25");
 
 my @nodes=qw(Node20 Spul Node22 Smel Tads Lber Cund Node25 Ldim Tbif Ncel);
+my @facul=qw(Smel Tads Lber Tbif Spul);
 
 foreach my $pos (sort {$a <=> $b} keys %hash2) {
-	if ($hash2{$pos} >= 3) {
+	if ($hash2{$pos} == 6) {
 		&Print_Nons($pos);
 	}
 }
@@ -76,5 +77,13 @@ sub Print_Nons {
 		$info.=$spe."($spepos);";
 	}
 	$info=~s/\;$//;
-	print "$orth\t$info\n";
+	my %hash3;
+	foreach my $spe (@facul) {
+		my $spepos=$hash1{$spe}->{$pos};
+		$hash3{$spepos}++;
+	}
+	my $nb=keys %hash3;
+	if ( $nb==1 && ($hash1{'Tbif'}->{$pos} ne $hash1{'Ncel'}->{$pos}) && ($hash1{'Smel'}->{$pos} ne $hash1{'Cund'}->{$pos}) ) {
+		print "$orth\t$info\n";
+	}
 }
