@@ -363,3 +363,107 @@ mv 1.txt in.BV
 nohup ~/software/paml4.9j/src/mcmctree mcmctree2.ctl >mcmctree2.process 2>&1 &
 # [1] 11841
 ```
+## GO enrichment
+### Extract the sequences of zebrafish genes in conserved gene families
+```Extract_zebrafish_seq.pl
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+my $cons="fm_no_care_nb_filtered_conserved.txt";
+my %hash;
+open CONS, $cons or die "can not open $cons\n";
+while (<CONS>) {
+	chomp;
+	next if /^Desc/;
+	my @a=split /\t/;
+	$hash{$a[1]}++;
+}
+
+my $fast="/media/HDD/cleaner_fish/genome/gene_family_3/Zebrafish.fasta";
+my %seq; my $name;
+open FAST, $fast or die "can not open $fast\n";
+while (<FAST>) {
+	chomp;
+	if (/>/) {
+		s/>//;
+		$name=$_;
+	} else {
+		$seq{$name}.=$_;
+	}
+}
+
+my $noca="fm_no_care_nb_ano_max_name.txt";
+open NOCA, $noca or die "can not open $noca\n";
+while (<NOCA>) {
+	chomp;
+	my @a=split /\t/;
+	my @b=split /\,/, $a[-1];
+	if ($hash{$a[0]}) {
+		foreach my $b (@b) {
+			print ">$a[0]_$b\n$seq{$b}\n" if $b=~/Zebrafish/i;
+		}
+	}
+}
+```
+
+```bash
+# (base) kang1234@celia-PowerEdge-T640 Wed Nov 09 13:23:38 ~/genome/gene_family/reports_gf3
+# Kang@fishlab3 Wed Nov 09 13:38:28 /media/HDD/cleaner_fish/genome/gene_family_3/OrthoFinder/Results_May09/Orthogroups
+# Seq header: Family00000_Zebrafish_ENSDARG00000100384; Family00000_Zebrafish_ENSDARG00000103767
+perl Extract_zebrafish_seq.pl >Fm_zebrafish_seq.fasta
+# kangjingliang@kangjingliangdeMacBook-Pro 三 11 09 14:22:50 ~/Documents/2022/Ldim_genome_Restart/Gene_fm3
+scp Kang@147.8.76.231:/media/HDD/cleaner_fish/genome/gene_family_3/OrthoFinder/Results_May09/Orthogroups/Fm_zebrafish_seq.fasta ./
+```
+### Extract the gene (sig. contraction or expansion) in gene family of Ldim
+#### Contracted gene family
+```Extract_fm_element.pl
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+my $sigF=$ARGV[0];
+my $key =$ARGV[1];
+my %hash;
+
+open SIGF, $sigF or die "can not open $sigF\n";
+while (<SIGF>) {
+	chomp;
+	next if /^Family_id/;
+	my @a=split /\t/;
+	if ($a[-1]=~/(.*?)\d+/) {
+		if ($1 eq $key) {
+			$hash{$a[0]}++;
+		}
+	}
+}
+
+my $fast="/media/HDD/cleaner_fish/genome/gene_family_3/OrthoFinder/Results_May09/Orthogroups/Fm_zebrafish_seq.fasta";
+open FAST, $fast or die "can not open $fast\n";
+while (<FAST>) {
+	chomp;
+	if (/>/) {
+		s/>//;
+		(my $fm)=$_=~/(.*)_Zebrafish_.*/;
+		print "$_\n" if $hash{$fm};
+	}
+}
+```
+
+
+```bash
+# Kang@fishlab3 Wed Nov 09 17:16:46 /media/HDD/cleaner_fish/genome/gene_family_3/OrthoFinder/Results_May09/Orthogroups
+scp kang1234@147.8.76.177:~/genome/gene_family/reports_gf3/Ldim.sig.fm.txt ./
+# Kang@fishlab3 Wed Nov 09 17:41:34 /media/HDD/cleaner_fish/genome/gene_family_3/OrthoFinder/Results_May09/Orthogroups
+perl Extract_fm_element.pl Ldim.sig.fm.txt - >Ldim_sig_contract_fm.txt
+perl Extract_fm_element.pl Ldim.sig.fm.txt + >Ldim_sig_expand_fm.txt
+# kangjingliang@kangjingliangdeMacBook-Pro 三 11 09 17:46:20 ~/Documents/2022/Ldim_genome_Restart/Gene_fm3
+scp Kang@147.8.76.231:/media/HDD/cleaner_fish/genome/gene_family_3/OrthoFinder/Results_May09/Orthogroups/Ldim_sig_*_fm.txt ./
+# Check the gene family number and the member in gene family
+# kangjingliang@kangjingliangdeMacBook-Pro 四 11 10 15:50:52 ~/Documents/2022/Ldim_genome_Restart/Gene_fm3
+less Ldim_sig_contract_fm_GO.txt|perl -alne 'my @a=split /\t/;my $j;for ($i=0;$i<@a-1;$i++){$j.=$a[$i]."\t"};if (/Tag/){print "$j\tFm_number\tFm_member"}elsif(/Family/){my @b=split /\;/, $a[-1];my %hash;my $k;foreach my $b (@b){(my $c)=$b=~/(.*)\_Zebrafish/;$hash{$c}++;$k.=$c.";" if $hash{$c}==1};$k=~s/\;$//;my $nb=keys %hash;print "$j\t$nb\t$k"}' >Ldim_sig_contract_fm_GO_2.txt
+less Ldim_sig_expand_fm_GO.txt|perl -alne 'my @a=split /\t/;my $j;for ($i=0;$i<@a-1;$i++){$j.=$a[$i]."\t"};if (/Tag/){print "$j\tFm_number\tFm_member"}elsif(/Family/){my @b=split /\;/, $a[-1];my %hash;my $k;foreach my $b (@b){(my $c)=$b=~/(.*)\_Zebrafish/;$hash{$c}++;$k.=$c.";" if $hash{$c}==1};$k=~s/\;$//;my $nb=keys %hash;print "$j\t$nb\t$k"}' >Ldim_sig_expand_fm_GO_2.txt
+
+less Ldim_sig_contract_fm_GO_reduce.txt|perl -alne 'my @a=split /\t/;my $j;for ($i=0;$i<@a-1;$i++){$j.=$a[$i]."\t"};if (/Tag/){print "$j\tFm_number\tFm_member"}elsif(/Family/){my @b=split /\;/, $a[-1];my %hash;my $k;foreach my $b (@b){(my $c)=$b=~/(.*)\_Zebrafish/;$hash{$c}++;$k.=$c.";" if $hash{$c}==1};$k=~s/\;$//;my $nb=keys %hash;print "$j\t$nb\t$k"}' >Ldim_sig_contract_fm_GO_reduce_2.txt
+less Ldim_sig_expand_fm_GO_reduce.txt|perl -alne 'my @a=split /\t/;my $j;for ($i=0;$i<@a-1;$i++){$j.=$a[$i]."\t"};if (/Tag/){print "$j\tFm_number\tFm_member"}elsif(/Family/){my @b=split /\;/, $a[-1];my %hash;my $k;foreach my $b (@b){(my $c)=$b=~/(.*)\_Zebrafish/;$hash{$c}++;$k.=$c.";" if $hash{$c}==1};$k=~s/\;$//;my $nb=keys %hash;print "$j\t$nb\t$k"}' >Ldim_sig_expand_fm_GO_reduce_2.txt
+```
