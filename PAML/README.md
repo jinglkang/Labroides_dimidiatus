@@ -126,10 +126,79 @@ cds2pep.pl final_alignment.fa > final_alignment_pep.fa
 scp kang1234@147.8.76.177:~/genome/paml_new/paml_input/OG0008849_OG0/final_alignment_pep.fa ./cyp26b1_alignment_pep.fa
 ```
 ## 4. Reconstruct the sequences on each ancestral node
+```temp2.pl
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+my $paml="Genelist_paml.txt";
+my %hash;
+open PAML, $paml or die "can not open $paml\n";
+while (<PAML>) {
+    chomp;
+    my @a=split;
+    $hash{$a[0]}=$a[-1];
+}
+
+my $anot="/home/kang1234/genome/Gene_annotation/combined/Gene_annotation.final.txt";
+my %anot;
+open ANOT, $anot or die "can not open $anot\n";
+while (<ANOT>) {
+	chomp;
+	my @a=split /\t/;
+	$anot{$a[0]}=$_;
+}
+
+my $conv ="convergent_evo_genes.txt";
+open CONV, $conv or die "can not open $conv\n";
+while (<CONV>) {
+    chomp;
+    my @a=split;
+    my ($orth, $Ldim, $ano);
+    $orth=$a[0];
+    $Ldim=$hash{$orth};
+    $ano =$anot{$Ldim};
+    print "$_\t$ano\n";
+}
+```
+
 ```bash
 # (base) kang1234@celia-PowerEdge-T640 Thu Nov 10 10:09:11 ~/genome/paml_new/paml_input
 cp OG0000065_OG8/1.ctr Ancestral.crl
+# Rebuild_seq_ancetral.pl; Rebuild_seq_ancetral_parallel.pl
 # (base) kang1234@celia-PowerEdge-T640 Thu Nov 10 11:23:59 ~/genome/paml_new/paml_input
 nohup perl Rebuild_seq_ancetral_parallel.pl final_orth_input_paml.txt Ancestral.crl >Rebuild_seq_ancetral.process 2>&1 &
 # [1] 26271
+# Detect_Nons.pl; Detect_Nons_all.pl
+# (base) kang1234@celia-PowerEdge-T640 Fri Nov 11 14:28:27 ~/genome/paml_new/paml_input
+perl Detect_Nons_all.pl >convergent_evo_genes.txt
+perl temp2.pl >convergent_evo_genes_ano.txt
+
+# Gene in functions
+# kangjingliang@kangjingliangdeMacBook-Pro 二 11 15 15:20:19 ~/Documents/2022/Ldim_genome_Restart/PSGs
+# Bone functions
+extract_gene_functions -i Convergent_enrichment.txt -a Gene_annotation.final.txt --gene_column 1 --func_column 3 --functions Bone_GOs.txt --output Convergent_Bone_GOs
+
+
+# Social functions
+extract_gene_functions -i Convergent_enrichment.txt -a Gene_annotation.final.txt --gene_column 1 --func_column 3 --functions social_GOs.txt --output Convergent_social_GOs
+less Convergent_social_GOs.txt|perl -alne 'my @a=split /\t/;print "$a[2]\t$a[-2]\t$a[-1]"'|sort -u
+
+# immune function
+extract_gene_functions -i Convergent_enrichment.txt -a Gene_annotation.final.txt --gene_column 1 --func_column 3 --functions immune_GOs.txt --output Convergent_immune_GOs
+less Convergent_immune_GOs.txt|perl -alne 'my @a=split /\t/;print "$a[2]\t$a[-2]\t$a[-1]"'|sort -u
+
+# sensory functions
+extract_gene_functions -i Convergent_enrichment.txt -a Gene_annotation.final.txt --gene_column 1 --func_column 3 --functions sensory_GOs.txt --output Convergent_sensory_GOs
+less Convergent_sensory_GOs.txt |perl -alne 'my @a=split /\t/;print "$a[2]\t$a[-2]\t$a[-1]"'|sort -u
+```
+
+## Fast evolving genes
+```bash
+# (base) kang1234@celia-PowerEdge-T640 Fri Nov 04 00:08:04 ~/genome/paml_new/paml_input
+vi spe_Ldim.tre
+# ((((Fugu,(Stickleback,(Spul,((Cund,((Smel,Tads),Lber)),(Ncel,(Ldim #1,Tbif)))))),(Platyfish,Medaka)),Zebrafish),Spottedgar);
+# perl codeml.pl --input temp/$temp --model branch --dir . --output_suf Ldim --tree spe_Ldim.tre --icode 0 --omega 1.2
+nohup perl codeml_parallel.pl final_orth_input_paml.txt >codeml.process 2>&1 &
+# [1] 30612
 ```
