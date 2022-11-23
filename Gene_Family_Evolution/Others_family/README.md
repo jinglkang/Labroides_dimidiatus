@@ -451,6 +451,24 @@ less Predict_Crystallins.phy|perl -alne 'next if /^\d+/;if ($F[0]=~/(.*?)_(.*?)_
 perl temp2.pl Crystallins_nb.txt > Crystallins_nb_2.txt
 ```
 
+## Neurexin
+```bash
+# (base) kang1234@celia-PowerEdge-T640 Wed Nov 23 12:54:53 ~/genome/Gene_annotation
+less ref.fasta.ano.final|grep -i 'Neurexin'|perl -alne '($nm)=$_=~/Name=\"(.*)\s+\[.*\]\"/;print $nm'|sort -u >Neurexins_names.txt
+perl Create_query_seqs.pl Neurexins_names.txt > Query_Neurexins.fasta
+
+# Kang@fishlab3 Wed Nov 23 13:00:37 /media/HDD/cleaner_fish/genome
+mkdir Neurexins; cd Neurexins
+# Kang@fishlab3 Wed Nov 23 13:04:19 /media/HDD/cleaner_fish/genome/Neurexins
+scp kang1234@147.8.76.177:~/genome/Gene_annotation/Neurexins_names.txt ./
+scp kang1234@147.8.76.177:~/genome/Gene_annotation/Query_Neurexins.fasta ./
+cp ../Glutamates/Fmdetect.pl ./
+cp ../Glutamates/run_Fmdetect.pl ./
+# Kang@fishlab3 Wed Nov 23 13:07:08 /media/HDD/cleaner_fish/genome/Neurexins
+nohup perl run_Fmdetect.pl /media/HDD/cleaner_fish/genome/Neurexins/Query_Neurexins.fasta 50 /media/HDD/cleaner_fish/genome/Neurexins/Neurexins_names.txt >Detect_Neurexins.process 2>&1 &
+# [1] 5778
+```
+
 ### 3. Opsin
 ```bash
 # Kang@fishlab3 Sun Nov 06 15:49:14 /media/HDD/cleaner_fish/genome/Opsin_new
