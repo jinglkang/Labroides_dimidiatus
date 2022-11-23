@@ -59,7 +59,7 @@ foreach my $ind (@heads) {
     next unless $ind=~/LD/;
     my ($nm, $tiss)=$ind=~/(LD\d+)(\D{2})/;
     my $type;
-    ($inds{$nm} eq "solo")?($type="solo"):($type="inte");
+    ($inds{$nm} eq "solo")?($type="1No-interaction"):($type="2Interaction");
     my $tpm=$hash{$ind}->{$gene};
     print "$gene\t$ind\t$tiss\t$type\t$tpm\n";
 }
