@@ -11,7 +11,7 @@ foreach my $bam (@bams) {
 }
 $head=~s/\s+$//;
 
-my %pos;
+my %pos; my @heads;
 my $read="all_inds_read_nb.txt";
 open READ, $read or die "can not open $read\n";
 while (<READ>) {
@@ -21,21 +21,26 @@ while (<READ>) {
 		print "$_\n";
 	} elsif (/^Geneid/) {
 		print "$head\n";
-		my @heads=split;
+		@heads=split;
 		for (my $i = 0; $i < @heads; $i++) {
 			if ($bams{$heads[$i]}) {
-				$pos{$i}++;
+				$pos{$i}->{$heads[$i]}++;
 			}
 		}
 	} else {
 		my @a=split;
 		my $info;
+		my %hash;
 		for (my $i = 0; $i < @a; $i++) {
 			if ($i<=5) {
 				$info.=$a[$i]."\t";
 			} elsif ($pos{$i}) {
-				$info.=$a[$i]."\t";
+				$hash{$heads[$i]}=$a[$i];
 			}
+		}
+		foreach my $bam (@bams) {
+			my $nb=$hash{$bam};
+			$info.=$nb."\t";
 		}
 		$info=~s/\s+$//;
 		print "$info\n";
