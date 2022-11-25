@@ -75,7 +75,7 @@ foreach my $DEG (sort keys %DEGs) {
         if ($DEGs{$DEG}->{$tiss}) {
             $info.=$tiss."-DEG"."\t$info1;$code\t";
         } else {
-            $info.=$tiss."-NONDEG"."\t$info1\t";
+            $info.=$tiss."-NONDEG"."\t$info1;$code\t";
         }
     }
     $info=~s/\s+$//;
