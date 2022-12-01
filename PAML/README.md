@@ -174,6 +174,10 @@ nohup perl Rebuild_seq_ancetral_parallel.pl final_orth_input_paml.txt Ancestral.
 perl Detect_Nons_all.pl >convergent_evo_genes.txt
 perl temp2.pl >convergent_evo_genes_ano.txt
 
+# The pep in cleaner fish should be also not same with Zebrafish
+# kangjingliang@kangjingliangdeMacBook-Pro 四 12 01 16:56:46 ~/Documents/2022/Ldim_genome_Restart/PSGs
+scp kang1234@147.8.76.177:~/genome/paml_new/paml_input/convergent_evo_genes_ano.txt ./convergent_evo_genes_ano_2.txt
+
 # Gene in functions
 # kangjingliang@kangjingliangdeMacBook-Pro 二 11 15 15:20:19 ~/Documents/2022/Ldim_genome_Restart/PSGs
 # Bone functions
