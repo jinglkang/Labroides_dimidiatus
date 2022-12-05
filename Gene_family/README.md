@@ -411,6 +411,8 @@ while (<NOCA>) {
 # (base) kang1234@celia-PowerEdge-T640 Wed Nov 09 13:23:38 ~/genome/gene_family/reports_gf3
 # Kang@fishlab3 Wed Nov 09 13:38:28 /media/HDD/cleaner_fish/genome/gene_family_3/OrthoFinder/Results_May09/Orthogroups
 # Seq header: Family00000_Zebrafish_ENSDARG00000100384; Family00000_Zebrafish_ENSDARG00000103767
+# Kang@fishlab3 Mon Dec 05 18:47:04 /media/HDD/cleaner_fish/genome/gene_family_3/OrthoFinder/Results_May09/Orthogroups
+less fm_no_care_nb_ano_max_name.txt|perl -alne 'next if /^Family_id/;@a=split /\t/;print "$a[0]\t$a[-3]\t$a[-2]"' >fm_name.txt
 perl Extract_zebrafish_seq.pl >Fm_zebrafish_seq.fasta
 # kangjingliang@kangjingliangdeMacBook-Pro 三 11 09 14:22:50 ~/Documents/2022/Ldim_genome_Restart/Gene_fm3
 scp Kang@147.8.76.231:/media/HDD/cleaner_fish/genome/gene_family_3/OrthoFinder/Results_May09/Orthogroups/Fm_zebrafish_seq.fasta ./
