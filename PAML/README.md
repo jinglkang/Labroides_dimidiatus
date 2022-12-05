@@ -125,6 +125,71 @@ cds2pep.pl final_alignment.fa > final_alignment_pep.fa
 # kangjingliang@kangjingliangdeMacBook-Pro 三 11 09 16:40:59 ~/Documents/2022/Ldim_genome_Restart/PSGs
 scp kang1234@147.8.76.177:~/genome/paml_new/paml_input/OG0008849_OG0/final_alignment_pep.fa ./cyp26b1_alignment_pep.fa
 ```
+
+### Other genes
+```bash
+# SLC1A1
+# (base) kang1234@celia-PowerEdge-T640 Thu Dec 01 16:00:43 ~/genome/paml_new/paml_input
+less Ldim_PSGs_id.txt|grep -i 'Ldim_g25472'
+# Ldim	OG0001073_OG1	SLC1A1	Excitatory amino acid transporter 3	-5963.331812	-5959.574763	3.75704900000073	0.006121793	Ldim_g25472
+# kangjingliang@kangjingliangdeMacBook-Pro 四 12 01 16:03:57 ~/Documents/2022/Ldim_genome_Restart/PSGs
+# (base) kang1234@celia-PowerEdge-T640 Thu Dec 01 16:02:43 ~/genome/paml_new/paml_input/OG0001073_OG1
+cd OG0001073_OG1/
+cds2pep.pl final_alignment.fa > final_alignment_pep.fa
+# kangjingliang@kangjingliangdeMacBook-Pro 四 12 01 16:03:57 ~/Documents/2022/Ldim_genome_Restart/PSGs
+scp kang1234@147.8.76.177:~/genome/paml_new/paml_input/OG0001073_OG1/final_alignment_pep.fa SLC1A1_alignment_pep.fa
+
+
+# Kcnc2
+# (base) kang1234@celia-PowerEdge-T640 Thu Dec 01 16:30:58 ~/genome/paml_new/paml_input
+less Ldim_PSGs_id.txt|grep -i 'Ldim_g26424'
+# Ldim	OG0008877_OG0	Kcnc2	Potassium voltage-gated channel subfamily C member 2	-5675.720551	-5670.849226	4.87132500000007	0.001800412	Ldim_g26424
+# (base) kang1234@celia-PowerEdge-T640 Thu Dec 01 16:33:24 ~/genome/paml_new/paml_input/OG0008877_OG0
+cd OG0008877_OG0
+# (base) kang1234@celia-PowerEdge-T640 Thu Dec 01 16:33:24 ~/genome/paml_new/paml_input/OG0008877_OG0
+cds2pep.pl final_alignment.fa > final_alignment_pep.fa
+# kangjingliang@kangjingliangdeMacBook-Pro 四 12 01 16:03:57 ~/Documents/2022/Ldim_genome_Restart/PSGs
+scp kang1234@147.8.76.177:~/genome/paml_new/paml_input/OG0008877_OG0/final_alignment_pep.fa Kcnc2_alignment_pep.fa
+
+# Convergent evolution
+# GAD1
+# (base) kang1234@celia-PowerEdge-T640 Thu Dec 01 16:52:18 ~/genome/paml_new/paml_input
+cd OG0000618_OG3
+# (base) kang1234@celia-PowerEdge-T640 Thu Dec 01 16:53:33 ~/genome/paml_new/paml_input/OG0000618_OG3
+cds2pep.pl final_alignment.fa > final_alignment_pep.fa
+# kangjingliang@kangjingliangdeMacBook-Pro 四 12 01 16:03:57 ~/Documents/2022/Ldim_genome_Restart/PSGs
+scp kang1234@147.8.76.177:~/genome/paml_new/paml_input/OG0000618_OG3/final_alignment_pep.fa GAD1_alignment_pep.fa
+
+# Trpm4
+# (base) kang1234@celia-PowerEdge-T640 Thu Dec 01 17:56:18 ~/genome/paml_new/paml_input
+cd OG0001511_OG1
+# (base) kang1234@celia-PowerEdge-T640 Thu Dec 01 18:11:09 ~/genome/paml_new/paml_input/OG0001511_OG1
+cds2pep.pl final_alignment.fa > final_alignment_pep.fa
+# kangjingliang@kangjingliangdeMacBook-Pro 四 12 01 18:01:32 ~/Documents/2022/Ldim_genome_Restart/PSGs
+scp kang1234@147.8.76.177:~/genome/paml_new/paml_input/OG0001511_OG1/final_alignment_pep.fa Trpm4_alignment_pep.fa
+
+# GUCY2C
+# (base) kang1234@celia-PowerEdge-T640 Thu Dec 01 18:41:57 ~/genome/paml_new/paml_input
+cd OG0005958_OG0
+# (base) kang1234@celia-PowerEdge-T640 Thu Dec 01 18:43:48 ~/genome/paml_new/paml_input/OG0005958_OG0
+cds2pep.pl final_alignment.fa > final_alignment_pep.fa
+# kangjingliang@kangjingliangdeMacBook-Pro 四 12 01 18:13:42 ~/Documents/2022/Ldim_genome_Restart/PSGs
+scp kang1234@147.8.76.177:~/genome/paml_new/paml_input/OG0005958_OG0/final_alignment_pep.fa GUCY2C_alignment_pep.fa
+
+# Grm5 (Metabotropic glutamate receptor 5)
+# (base) kang1234@celia-PowerEdge-T640 Sat Dec 03 12:23:37 ~/genome/paml_new/paml_input
+cd OG0001299_OG1
+# (base) kang1234@celia-PowerEdge-T640 Sat Dec 03 12:24:15 ~/genome/paml_new/paml_input/OG0001299_OG1
+cds2pep.pl final_alignment.fa > final_alignment_pep.fa
+# kangjingliang@kangjingliangdeMacBook-Pro 六 12 03 12:21:33 ~/Documents/2022/Ldim_genome_Restart/PSGs
+scp kang1234@147.8.76.177:~/genome/paml_new/paml_input/OG0005958_OG0/final_alignment_pep.fa Grm5_alignment_pep.fa
+
+# TAS1R3
+# (base) kang1234@celia-PowerEdge-T640 Sat Dec 03 12:24:33 ~/genome/paml_new/paml_input/OG0001299_OG1
+cd ../OG0006503_OG0
+cds2pep.pl final_alignment.fa > final_alignment_pep.fa
+```
+
 ## 4. Reconstruct the sequences on each ancestral node
 ```temp2.pl
 #!/usr/bin/perl
@@ -212,4 +277,12 @@ vi spe_Ldim.tre
 # perl codeml.pl --input temp/$temp --model branch --dir . --output_suf Ldim --tree spe_Ldim.tre --icode 0 --omega 1.2
 nohup perl codeml_parallel.pl final_orth_input_paml.txt >codeml.process 2>&1 &
 # [1] 30612
+```
+
+## Extract the genes related to some GO functions
+```bash
+# kangjingliang@kangjingliangdeMacBook-Pro 五 12 02 15:56:41 ~/Documents/2022/Ldim_genome_Restart/PSGs
+extract_gene_functions -i Final_Convergent_enrichment.txt -a Gene_annotation.final.txt --gene_column 1 --func_column 3 --functions sensory_GOs_all.txt --output Final_convergent_sensory_GOs
+extract_gene_functions -i Final_Convergent_enrichment.txt -a Gene_annotation.final.txt --gene_column 1 --func_column 3 --functions immune_GOs.txt --output Final_convergent_immune_GOs
+extract_gene_functions -i Final_Convergent_enrichment.txt -a Gene_annotation.final.txt --gene_column 1 --func_column 3 --functions social_GOs.txt --output Final_convergent_social_GOs
 ```
