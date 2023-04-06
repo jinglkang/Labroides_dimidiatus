@@ -72,7 +72,6 @@ perl temp4.pl > Total_DEGs_enrichment_reduced_regulation_ratio.txt
 # kangjingliang@kangjingliangdeMacBook-Pro 五 11 25 17:08:44 ~/Documents/2021/Cleaner_wrasse/gene_expression/enrichment
 mv Total_DEGs_enrichment_reduced.txt Total_DEGs_reduced_enrichment.txt
 extract_gene_functions -i Total_DEGs_reduced_enrichment.txt -a Gene_annotation.final.txt --gene_column 1 --func_column 3 --functions Plot_GOs.txt --output Total_DEGs_reduced_enrichment_GOs
-
 ```
 ### immune
 ```bash
@@ -226,6 +225,16 @@ mv predicted_genes_phy_reads_nb_tpm_1.txt predicted_genes_phy_reads_nb_tpm.txt
 cat ../coldata_*.txt|perl -alne '$i++;s/\r//g;if (/^\s+/ && $i==1){print}elsif(/^LD/ && $i>1){print}' >coldata.txt
 less predicted_genes_phy_reads_nb_tpm.txt|perl -alne 'print $F[0] if /L\.dimidiatus/'|sort >ORs.txt
 extract_reads_nb --matrix predicted_genes_phy_reads_nb_tpm.txt --genes ORs.txt --samples coldata.txt >ORs_reads_nb_tpm.txt
+
+# Count the number of genes with "expression == 0" and the maximun expression per gene
+# kangjingliang@kangjingliangdeMacBook-Pro 二 11 29 10:30:39 ~/Documents/2021/Cleaner_wrasse/gene_expression/Gene_families
+less ORs_reads_nb_tpm.txt|perl -alne '$k++;print "Gene\tNbeq0\tNbeq0_ratio\tMaximun_Nb\tMean_Nb" if $k==1;next if /^\s+/;my ($j, $max, $mean);for (my $i = 1; $i < @F; $i++){$j++ if $F[$i]==0;$mean+=$F[$i];($F[$i]<$max)?($max=$max):($max=$F[$i])};($j>0)?($j=$j):($j=0);my $rat=$j/36;$rat=sprintf("%.3f",$rat);$mean=$mean/36;$mean=sprintf("%.3f",$mean);print "$F[0]\t$j\t$rat\t$max\t$mean"' >ORs_Expression_info.txt
+
+# Plot the expression of ORs if its expression equals to 0 in less than 80% individuals (< 28 individuals: 36 individuals in total)
+cp ~/Documents/2021/Cleaner_wrasse/gene_expression/enrichment/Create_reads_nb_gene.pl ./
+# kangjingliang@kangjingliangdeMacBook-Pro 二 11 29 11:18:51 ~/Documents/2021/Cleaner_wrasse/gene_expression/Gene_families
+vi ORs_expression_less_80_0.txt
+perl Create_reads_nb_gene.pl --matr ORs_reads_nb_tpm.txt --gene L.dimidiatus.Kappa-1,L.dimidiatus.Delta-7,L.dimidiatus.Delta-13,L.dimidiatus.Delta-9,L.dimidiatus.Delta-8,L.dimidiatus.Delta-10,L.dimidiatus.Delta-6,L.dimidiatus.Delta-32,L.dimidiatus.Delta-11,L.dimidiatus.Delta-14,L.dimidiatus.Beta-1,L.dimidiatus.Delta-19,L.dimidiatus.Delta-29,L.dimidiatus.Delta-15,L.dimidiatus.Eta-1,L.dimidiatus.Delta-31,L.dimidiatus.Delta-30,L.dimidiatus.Delta-12 > ORs_expression_less_80_0_tpm_plot.txt
 ```
 **Plot**   
 ```R
@@ -252,6 +261,10 @@ cp /media/HDD/cleaner_fish/genome/BMPs/temp2.pl ./
 perl temp2.pl Opsins_nb.txt >Opsins_nb_2.txt
 # kangjingliang@kangjingliangdeMacBook-Pro 二 11 22 14:26:21 ~/Documents/2021/Cleaner_wrasse/gene_expression/Gene_families
 extract_reads_nb --matrix predicted_genes_phy_reads_nb_tpm.txt --genes Opsins.txt --samples coldata.txt >Opsins_reads_nb_tpm.txt
+
+# Barplot
+# kangjingliang@kangjingliangdeMacBook-Pro 二 11 29 12:01:50 ~/Documents/2021/Cleaner_wrasse/gene_expression/Gene_families
+perl Create_reads_nb_gene.pl --matr Opsins_reads_nb_tpm.txt --gene OPSR_1C,OPSV_1C,OPSB_1T,OPSD_1C,OPSD_2C,OPSG_3T,OPSG_2C,OPSG4_1C > Opsins_reads_nb_tpm_plot.txt
 ```
 
 ### Glutamates
@@ -285,6 +298,11 @@ perl temp2.pl RLRs_nb.txt >RLRs_nb_2.txt
 # kangjingliang@kangjingliangdeMacBook-Pro 二 11 22 18:15:30 ~/Documents/2021/Cleaner_wrasse/gene_expression/Gene_families
 perl temp1.pl|sort -u
 extract_reads_nb --matrix predicted_genes_phy_reads_nb_tpm.txt --genes Immune.txt --samples coldata.txt >Immune_reads_nb_tpm.txt
+
+less Immune_reads_nb_tpm.txt|perl -alne '$k++;print "Gene\tNbeq1\tNbeq1_ratio\tMaximun_Nb\tMean_Nb" if $k==1;next if /^\s+/;my ($j, $max, $mean);for (my $i = 1; $i < @F; $i++){$j++ if $F[$i]<1;$mean+=$F[$i];($F[$i]<$max)?($max=$max):($max=$F[$i])};($j>0)?($j=$j):($j=0);my $rat=$j/36;$rat=sprintf("%.3f",$rat);$mean=$mean/36;$mean=sprintf("%.3f",$mean);print "$F[0]\t$j\t$rat\t$max\t$mean"' > Immune_Expression_info.txt
+vi Immune_expression_less_80_1.txt
+# Expression TPM >=1 in 80% indviduals
+perl Create_reads_nb_gene.pl --matr Immune_reads_nb_tpm.txt --gene DHX58_1C,IFIH1_1C,NAL12_4C,NAL12_5C,NLRX1_1C,NOD2_1C,TLR13_3C,TLR1_1C,TLR21_1C,TLR3_1C > Immune_reads_nb_tpm_plot.txt
 ```
 
 ### Protocadherins: alpha; gamma
@@ -292,6 +310,13 @@ extract_reads_nb --matrix predicted_genes_phy_reads_nb_tpm.txt --genes Immune.tx
 # kangjingliang@kangjingliangdeMacBook-Pro 二 11 22 23:31:16 ~/Documents/2021/Cleaner_wrasse/gene_expression/Gene_families
 perl temp2.pl|sort -u >protocadherins.txt
 extract_reads_nb --matrix predicted_protocadherins_phy_reads_nb_tpm.txt --genes protocadherins.txt --samples coldata.txt >protocadherins_reads_nb_tpm.txt
+
+# kangjingliang@kangjingliangdeMacBook-Pro 三 11 30 10:49:51 ~/Documents/2021/Cleaner_wrasse/gene_expression/Gene_families
+less protocadherins_reads_nb_tpm.txt|perl -alne '$k++;print "Gene\tNbeq1\tNbeq1_ratio\tMaximun_Nb\tMean_Nb" if $k==1;next if /^\s+/;my ($j, $max, $mean);for (my $i = 1; $i < @F; $i++){$j++ if $F[$i]<1;$mean+=$F[$i];($F[$i]<$max)?($max=$max):($max=$F[$i])};($j>0)?($j=$j):($j=0);my $rat=$j/36;$rat=sprintf("%.3f",$rat);$mean=$mean/36;$mean=sprintf("%.3f",$mean);print "$F[0]\t$j\t$rat\t$max\t$mean"' >Protocadherins_Expression_info.txt
+vi Protocadherins_expression_less_80_1.txt
+
+# Expression TPM >=1 in 80% indviduals
+perl Create_reads_nb_gene.pl --matr protocadherins_reads_nb_tpm.txt --gene PCDA2_1T,PCDA3_6C,PCDA6_3C,PCDA8_4C,PCDC2_1C,PCDC2_2C,PCDG2_1C,PCDG2_5T,PCDG3_2C,PCDG8_2C,PCDGM_2C,PCDGM_3C,PCDGM_5C,PCDGM_6C > protocadherins_reads_nb_tpm_plot.txt
 ```
 
 ## Plot specific gene reads nb
@@ -357,3 +382,26 @@ ggbarplot(data, x = "Tissue", y = "TPM", facet.by = "Gene", scales = "free",
         strip.background = element_rect(color = "white", fill = "white"))
 ```
 
+## Combine the predicted gtf with the original gtf together for DEGs detection
+```bash
+# (base) kang1234@celia-PowerEdge-T640 Mon Feb 06 15:02:08 ~/genome/Gene_annotation/RNA-seq/RNA-align
+cat ../../combined/Ldim_original_name.gtf predicted_genes_phy.gtf >Original_genewise_combine.gtf
+featureCounts -a Original_genewise_combine.gtf -o Original_genewise_combine_reads_nb.txt -T 24 LD5FB.sorted.bam LD6FB.sorted.bam LD15FB.sorted.bam LD16FB.sorted.bam LD25FB.sorted.bam LD26FB.sorted.bam LD3FB.sorted.bam LD4FB.sorted.bam LD13FB.sorted.bam LD14FB.sorted.bam LD23FB.sorted.bam LD24FB.sorted.bam LD5HB.sorted.bam LD6HB.sorted.bam LD15HB.sorted.bam LD16HB.sorted.bam LD25HB.sorted.bam LD26HB.sorted.bam LD3HB.sorted.bam LD4HB.sorted.bam LD13HB.sorted.bam LD14HB.sorted.bam LD23HB.sorted.bam LD24HB.sorted.bam LD5MB.sorted.bam LD6MB.sorted.bam LD15MB.sorted.bam LD16MB.sorted.bam LD25MB.sorted.bam LD26MB.sorted.bam LD3MB.sorted.bam LD4MB.sorted.bam LD13MB.sorted.bam LD14MB.sorted.bam LD23MB.sorted.bam LD24MB.sorted.bam
+# (base) kang1234@celia-PowerEdge-T640 Mon Feb 06 15:19:16 ~/genome/Gene_annotation/RNA-seq/RNA-align
+cp Original_genewise_combine_reads_nb.txt read_matrix/
+# (base) kang1234@celia-PowerEdge-T640 Mon Feb 06 15:20:56 ~/genome/Gene_annotation/RNA-seq/RNA-align/read_matrix
+perl Extract_ind_reads_nb.pl Original_genewise_combine_reads_nb.txt
+# kangjingliang@kangjingliangdeMacBook-Pro 一  2 06 15:23:36 ~/Documents/2023/genome/DEGs
+scp kang1234@147.8.76.177:~/genome/Gene_annotation/RNA-seq/RNA-align/read_matrix/Original_genewise_combine_reads_nb_*.txt ./
+# kangjingliang@kangjingliangdeMacBook-Pro 一  2 06 15:26:14 ~/Documents/2023/genome/DEGs
+cp ~/Documents/2021/Cleaner_wrasse/gene_expression/coldata_*.txt ./
+
+# FB: 2747 DEGs
+DESeq --matrix Original_genewise_combine_reads_nb_FB.txt --samples coldata_FB.txt --column Group --prefix FB
+
+# MB: 512 DEGs
+DESeq --matrix Original_genewise_combine_reads_nb_MB.txt --samples coldata_MB.txt --column Group --prefix MB
+
+# HB: 1559 DEGs
+DESeq --matrix Original_genewise_combine_reads_nb_HB.txt --samples coldata_HB.txt --column Group --prefix HB
+```
