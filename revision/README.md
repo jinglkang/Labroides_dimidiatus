@@ -276,7 +276,7 @@ nohup codeml codeml_est.ctr > codeml_est.process 2>&1 &
 # (base) kang1234@celia-PowerEdge-T640 Sun Jun 11 22:53:48 ~/genome/paml_new/paml_input
 vi Detect_Nons_revision.pl
 vi Detect_Nons_all_revision.pl # make sure all the non-cleaner shared the same character
-perl Detect_Nons_all_revision.pl > convergent_evo_genes_revision.txt # 36 convergent sites
+perl Detect_Nons_all_revision.pl > convergent_evo_genes_revision.txt # 38 convergent sites
 # plot
 # http://vision.hyphy.org/BUSTED to vision the positively selected site
 # kangjingliang@kangjingliangdeMacBook-Pro 一  6 12 14:21:28 ~/Desktop
