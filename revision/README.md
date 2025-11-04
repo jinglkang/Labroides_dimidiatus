@@ -2,7 +2,7 @@
 ## Try to run hyphy for a gene
 ```bash
 # hyphy busted --alignment final_alignment.fa --tree spe.tre --multiple-hit 8
-# download "BUSTED-MH.bf" from https://github.com/veg/hyphy-analyses/tree/master/BUSTED-MH
+# download "BUSTED-MH.bf" from https://github.com/veg/hyphy-analyses/blob/master/BUSTED-MH/BUSTED-MH.bf
 # Kang@fishlab3 Tue Jun 06 14:44:16 /media/HDD/white_island/Compevo/orth16_new/paml_files/OG0026786
 hyphy BUSTED-MH.bf --alignment final_alignment.fa --tree spe.tre > 1.txt
 
